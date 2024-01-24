@@ -1,6 +1,6 @@
-package com.skilldistillery.carwash.security;
+package com.skilldistillery.carwash.services;
 
-import com.skilldistillery.loghome.entities.User;
+import com.skilldistillery.carwash.entities.User;
 
 public interface AuthService {
 	public User register(User user);

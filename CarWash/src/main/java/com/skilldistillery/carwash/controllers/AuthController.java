@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.loghome.entities.User;
-import com.skilldistillery.loghome.services.AuthService;
+import com.skilldistillery.carwash.entities.User;
+import com.skilldistillery.carwash.services.AuthService;
 
 import jakarta.servlet.http.HttpServletResponse;
 

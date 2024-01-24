@@ -1,4 +1,4 @@
-package com.skilldistillery.carwash.controllers;
+package com.skilldistillery.carwash.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.carwash.entities.User;
 import com.skilldistillery.carwash.repositories.UserRepository;
-import com.skilldistillery.carwash.security.AuthService;
 
 @Service
 public class AuthServiceImpl implements AuthService {
