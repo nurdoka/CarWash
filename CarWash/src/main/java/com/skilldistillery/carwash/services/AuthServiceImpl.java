@@ -12,14 +12,16 @@ public class AuthServiceImpl implements AuthService {
 
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private PasswordEncoder encoder;
-	
+
 	@Override
 	public User register(User user) {
 		user.setEnabled(true);
-		user.setRole("standard");
+		if (user.getRole() == null) {
+			user.setRole("CUSTOMER");
+		}
 		String encryptedPassword = encoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
 		return userRepo.saveAndFlush(user);

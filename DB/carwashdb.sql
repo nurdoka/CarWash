@@ -27,9 +27,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` VARCHAR(45) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  `user_type` VARCHAR(45) NULL,
   `enabled` TINYINT NOT NULL,
-  `role` VARCHAR(45) NULL,
+  `role` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   UNIQUE INDEX `user_name_UNIQUE` (`username` ASC),
@@ -47,11 +46,12 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
   `make` VARCHAR(45) NULL,
   `model` VARCHAR(45) NULL,
   `year` VARCHAR(45) NULL,
-  `USER_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `license_plate` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_VEHICLE_USER_idx` (`USER_id` ASC),
+  INDEX `fk_VEHICLE_USER_idx` (`user_id` ASC),
   CONSTRAINT `fk_VEHICLE_USER`
-    FOREIGN KEY (`USER_id`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -145,7 +145,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `carwashdb`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `username`, `password`, `user_type`, `enabled`, `role`) VALUES (1, 'John', 'Doe', 'some@gmail.com', 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', NULL, 1, NULL);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `username`, `password`, `enabled`, `role`) VALUES (1, 'John', 'Doe', 'some@gmail.com', 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'CUSTOMER');
 
 COMMIT;
 
