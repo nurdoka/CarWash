@@ -120,50 +120,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `service_level`
+-- Table `service`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `service_level` ;
+DROP TABLE IF EXISTS `service` ;
 
-CREATE TABLE IF NOT EXISTS `service_level` (
+CREATE TABLE IF NOT EXISTS `service` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `description` TEXT NULL,
   `image_url` VARCHAR(2000) NULL,
-  `cost_per_wash` DECIMAL(5,2) NULL,
+  `cost` DECIMAL(5,2) NULL,
   `store_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_service_level_store1_idx` (`store_id` ASC),
   CONSTRAINT `fk_service_level_store1`
     FOREIGN KEY (`store_id`)
     REFERENCES `store` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `membership`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `membership` ;
-
-CREATE TABLE IF NOT EXISTS `membership` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vehicle_id` INT NOT NULL,
-  `service_level_id` INT NOT NULL,
-  `create_date` DATETIME NULL,
-  `expiration_date` DATETIME NULL,
-  `cost_per_wash` DECIMAL(5,2) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_membership_vehicle1_idx` (`vehicle_id` ASC),
-  INDEX `fk_membership_service_level1_idx` (`service_level_id` ASC),
-  CONSTRAINT `fk_membership_vehicle1`
-    FOREIGN KEY (`vehicle_id`)
-    REFERENCES `vehicle` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_membership_service_level1`
-    FOREIGN KEY (`service_level_id`)
-    REFERENCES `service_level` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -179,14 +151,11 @@ CREATE TABLE IF NOT EXISTS `wash` (
   `vehicle_id` INT NOT NULL,
   `store_id` INT NOT NULL,
   `create_date` DATETIME NULL,
-  `price_paid` DECIMAL(5,2) NULL,
-  `membership_id` INT NULL,
-  `service_level_id` INT NOT NULL,
+  `service_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_car_wash_log_vehicle1_idx` (`vehicle_id` ASC),
   INDEX `fk_car_wash_log_store1_idx` (`store_id` ASC),
-  INDEX `fk_wash_membership1_idx` (`membership_id` ASC),
-  INDEX `fk_wash_service_level1_idx` (`service_level_id` ASC),
+  INDEX `fk_wash_service_level1_idx` (`service_id` ASC),
   CONSTRAINT `fk_car_wash_log_vehicle1`
     FOREIGN KEY (`vehicle_id`)
     REFERENCES `vehicle` (`id`)
@@ -197,16 +166,25 @@ CREATE TABLE IF NOT EXISTS `wash` (
     REFERENCES `store` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_wash_membership1`
-    FOREIGN KEY (`membership_id`)
-    REFERENCES `membership` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_wash_service_level1`
-    FOREIGN KEY (`service_level_id`)
-    REFERENCES `service_level` (`id`)
+    FOREIGN KEY (`service_id`)
+    REFERENCES `service` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `membership`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `membership` ;
+
+CREATE TABLE IF NOT EXISTS `membership` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `create_date` DATETIME NULL,
+  `expiration_date` DATETIME NULL,
+  `cost_per_wash` DECIMAL(5,2) NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -315,21 +293,11 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `service_level`
+-- Data for table `service`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `carwashdb`;
-INSERT INTO `service_level` (`id`, `name`, `description`, `image_url`, `cost_per_wash`, `store_id`) VALUES (1, 'basic', 'basic wash', NULL, 8.99, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `membership`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `carwashdb`;
-INSERT INTO `membership` (`id`, `vehicle_id`, `service_level_id`, `create_date`, `expiration_date`, `cost_per_wash`) VALUES (1, 1, 1, NULL, NULL, 8.99);
+INSERT INTO `service` (`id`, `name`, `description`, `image_url`, `cost`, `store_id`) VALUES (1, 'basic', 'basic wash', NULL, 8.99, 1);
 
 COMMIT;
 
@@ -339,7 +307,17 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `carwashdb`;
-INSERT INTO `wash` (`id`, `vehicle_id`, `store_id`, `create_date`, `price_paid`, `membership_id`, `service_level_id`) VALUES (1, 1, 1, NULL, 8.99, 1, 1);
+INSERT INTO `wash` (`id`, `vehicle_id`, `store_id`, `create_date`, `service_id`) VALUES (1, 1, 1, NULL, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `membership`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `carwashdb`;
+INSERT INTO `membership` (`id`, `create_date`, `expiration_date`, `cost_per_wash`) VALUES (1, NULL, NULL, 8.99);
 
 COMMIT;
 
