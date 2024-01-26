@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -27,10 +26,12 @@ public class Address {
 
 	private String zip;
 	
+	
 	@OneToMany(mappedBy = "address")
 	private List <User> users;
 	
 	//MAKING ADDRESS ENTITY AWARE OF STORE ASSOCIATION
+	
 	@OneToOne(mappedBy = "address")
 	private Store store;
 	

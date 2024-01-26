@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,11 +50,12 @@ public class User {
 	@Column(name = "last_update")
 	private LocalDateTime lastUpdate;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="address_id")
 	private Address address;
 	
 	//VEHICLE ASSOCIATION  (A)
+	
 	@OneToMany(mappedBy = "user")
 	private List<Vehicle> vehicles;
 	
@@ -227,7 +229,7 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", username=" + username + ", password=" + password + ", enabled=" + enabled + ", role=" + role
-				+ ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + "]";
+				+ ", createDate=" + createDate + ", lastUpdate=" + lastUpdate + ", address=" + address.getCity() + "]";
 	}
 
 	

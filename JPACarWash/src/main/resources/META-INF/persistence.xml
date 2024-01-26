@@ -5,7 +5,15 @@
 	 <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 
+	<class>com.skilldistillery.carwash.entities.Address</class>
+	<class>com.skilldistillery.carwash.entities.Comment</class>
+	<class>com.skilldistillery.carwash.entities.Service</class>
+	<class>com.skilldistillery.carwash.entities.Store</class>
+	<class>com.skilldistillery.carwash.entities.StoreRating</class>
+	<class>com.skilldistillery.carwash.entities.StoreRatingId</class>
 	<class>com.skilldistillery.carwash.entities.User</class>
+	<class>com.skilldistillery.carwash.entities.Vehicle</class>
+	<class>com.skilldistillery.carwash.entities.Wash</class>
 
 
 

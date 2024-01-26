@@ -24,6 +24,8 @@ public class AuthServiceImpl implements AuthService {
 		}
 		String encryptedPassword = encoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
+		  System.out.println(user.getAddress());
+		  System.out.println(user.getFirstName());
 		return userRepo.saveAndFlush(user);
 	}
 
@@ -31,5 +33,6 @@ public class AuthServiceImpl implements AuthService {
 	public User getUserByUsername(String username) {
 		return userRepo.findByUsername(username);
 	}
+
 
 }
