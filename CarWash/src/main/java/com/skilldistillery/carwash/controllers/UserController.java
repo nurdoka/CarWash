@@ -4,9 +4,9 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.carwash.entities.User;
@@ -17,14 +17,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @CrossOrigin({ "*", "http://localhost/" })
+@RequestMapping("api")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 	
-	@PutMapping("user/{id}")
-	public User updateByUsername(HttpServletRequest req, HttpServletResponse res,Principal principal, @PathVariable("id") int id,
-			@RequestBody User user) {
+	@PutMapping("user/profile")
+	public User updateByUsername(HttpServletRequest req, HttpServletResponse res,Principal principal, @RequestBody User user) {
 		User userInData = null;
 		try {
 			userInData = userService.updateUserByUsername(principal.getName(), user);
