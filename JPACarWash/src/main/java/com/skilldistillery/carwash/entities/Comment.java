@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Comment {
@@ -22,8 +23,9 @@ public class Comment {
 
 	private String content;
 
-//	@Column(name = "store_id")
-//	private Store store;          COME BACK AND FIX ME
+	@ManyToOne
+	@JoinColumn(name="store_id")
+	private Store store;
 
 //	@Column(name = "user_id")
 //	private User user;             COME BACK AND FIX ME
@@ -46,6 +48,14 @@ public class Comment {
 	}
 
 //GETTERS AND SETTERS
+
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
 
 	public int getId() {
 		return id;

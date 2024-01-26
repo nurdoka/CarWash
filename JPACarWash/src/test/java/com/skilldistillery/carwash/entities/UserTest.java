@@ -47,5 +47,29 @@ class UserTest {
 	}
 	
 	
+	// MANY TO ONE MAPPING
+	@Test
+	void test_User_to_Address() {
+		assertNotNull(user);
+		assertEquals("123 Fake st", user.getAddress().getStreet());
+		assertEquals("Denver", user.getAddress().getCity());
+	}
+
+	// ONE TO MANY VEHICLE MAPPING
+	@Test
+	void test_User_to_Vehicle() {
+		assertNotNull(user);
+		assertTrue(user.getVehicles().size() > 0);
+	}
+
+	
+	// ONE TO MANY Store MAPPING
+	@Test
+	void test_User_is_associate_to_Store() {
+		assertNotNull(user);
+		assertTrue(user.getStores().size() > 0);
+	}
+	
+	
 
 }

@@ -46,6 +46,12 @@ class CommentTest {
 		assertEquals("cool place", comment.getContent());
 	}
 	
+	@Test
+	void test_Comment_has_store_association() {
+		assertNotNull(comment);
+		assertEquals("CarWash", comment.getStore().getName());
+	}
+	
 	
 
 }

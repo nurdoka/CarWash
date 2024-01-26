@@ -1,6 +1,8 @@
 package com.skilldistillery.carwash.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -44,6 +46,36 @@ class StoreTest {
 	void test_Store_entity_mapping() {
 		assertNotNull(store);
 		assertEquals("some@gmail.com", store.getEmail());
+	}
+
+	@Test
+	void test_Store_has_manager() {
+		assertNotNull(store);
+		assertEquals("John", store.getUser().getFirstName());
+	}
+
+	@Test
+	void test_Store_has_Address() {
+		assertNotNull(store);
+		assertEquals("Denver", store.getAddress().getCity());
+	}
+
+	@Test
+	void test_Store_has_Comments() {
+		assertNotNull(store);
+		assertTrue(store.getComments().size() > 0);
+	}
+
+	@Test
+	void test_Store_has_Services() {
+		assertNotNull(store);
+		assertTrue(store.getServices().size() > 0);
+	}
+
+	@Test
+	void test_Store_has_Wash_log_access() {
+		assertNotNull(store);
+		assertTrue(store.getWashes().size() > 0);
 	}
 	
 	

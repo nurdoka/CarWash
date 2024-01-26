@@ -1,6 +1,7 @@
 package com.skilldistillery.carwash.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -12,11 +13,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class VehicleTest {
+class StoreRatingTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Vehicle vehicle;
+	private StoreRating storeRating;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,33 +32,22 @@ class VehicleTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		vehicle = em.find(Vehicle.class, 1);
+//		storeRating = em.find(StoreRating.class, 1);
+
+		StoreRatingId uSRID = new StoreRatingId(1, 1);
+		storeRating = em.find(StoreRating.class, uSRID);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		vehicle = null;
+		storeRating = null;
 	}
 
 	@Test
-	void test_Vehicle_entity_mapping() {
-		assertNotNull(vehicle);
-		assertEquals("F150", vehicle.getModel());
-	}
-
-	//Vehicle to User mapping
-	@Test
-	void test_Vehicle_to_User_mapping() {
-		assertNotNull(vehicle);
-		assertEquals("John", vehicle.getUser().getFirstName());
-		assertEquals("Doe", vehicle.getUser().getLastName());
-	}
-
-	@Test
-	void test_Vehicle_to_Wash_mapping() {
-		assertNotNull(vehicle);
-		assertTrue(vehicle.getWashes().size() > 0);
+	void test_StoreRating_entity_mapping() {
+		assertNotNull(storeRating);
+		assertEquals(5, storeRating.getRating());
 	}
 	
 	

@@ -1,6 +1,7 @@
 package com.skilldistillery.carwash.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,6 +12,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -45,6 +49,23 @@ public class User {
 	@Column(name = "last_update")
 	private LocalDateTime lastUpdate;
 	
+	@ManyToOne
+	@JoinColumn(name="address_id")
+	private Address address;
+	
+	//VEHICLE ASSOCIATION  (A)
+	@OneToMany(mappedBy = "user")
+	private List<Vehicle> vehicles;
+	
+	
+	@OneToMany(mappedBy = "user")
+	private List<Store> stores;
+	
+	
+	
+	
+	
+	
 	
 	//CONSTRUCTORS
 	
@@ -72,6 +93,30 @@ public class User {
 
 	//GETTERS AND SETTERS
 	
+	public List<Store> getStores() {
+		return stores;
+	}
+
+	public void setStores(List<Store> stores) {
+		this.stores = stores;
+	}
+
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

@@ -1,16 +1,15 @@
 package com.skilldistillery.carwash.entities;
 
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Address {
@@ -28,7 +27,12 @@ public class Address {
 
 	private String zip;
 	
-
+	@OneToMany(mappedBy = "address")
+	private List <User> users;
+	
+	//MAKING ADDRESS ENTITY AWARE OF STORE ASSOCIATION
+	@OneToOne(mappedBy = "address")
+	private Store store;
 	
 	
 	//CONSTRUCTORS
@@ -50,6 +54,22 @@ public class Address {
 	
 	
 	//GETTERS AND SETTERS
+
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 
 	public int getId() {
 		return id;

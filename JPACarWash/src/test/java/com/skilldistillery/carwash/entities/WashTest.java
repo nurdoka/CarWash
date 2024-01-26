@@ -12,11 +12,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class VehicleTest {
+class WashTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Vehicle vehicle;
+	private Wash wash;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,33 +31,37 @@ class VehicleTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		vehicle = em.find(Vehicle.class, 1);
+		wash = em.find(Wash.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		vehicle = null;
+		wash = null;
 	}
 
 	@Test
-	void test_Vehicle_entity_mapping() {
-		assertNotNull(vehicle);
-		assertEquals("F150", vehicle.getModel());
-	}
-
-	//Vehicle to User mapping
-	@Test
-	void test_Vehicle_to_User_mapping() {
-		assertNotNull(vehicle);
-		assertEquals("John", vehicle.getUser().getFirstName());
-		assertEquals("Doe", vehicle.getUser().getLastName());
+	void test_Wash_entity_mapping() {
+		assertNotNull(wash);
+		assertEquals(1, wash.getId());
 	}
 
 	@Test
-	void test_Vehicle_to_Wash_mapping() {
-		assertNotNull(vehicle);
-		assertTrue(vehicle.getWashes().size() > 0);
+	void test_Wash_has_vehicle_access() {
+		assertNotNull(wash);
+		assertEquals("F150", wash.getVehicle().getModel());
+	}
+
+	@Test
+	void test_Wash_has_Store_access() {
+		assertNotNull(wash);
+		assertEquals("123 Fake st", wash.getStore().getAddress().getStreet());
+	}
+
+	@Test
+	void test_Wash_has_Service_access() {
+		assertNotNull(wash);
+		assertEquals("basic wash", wash.getService().getDescription());
 	}
 	
 	

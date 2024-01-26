@@ -1,6 +1,7 @@
 package com.skilldistillery.carwash.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,6 +12,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Store {
@@ -21,8 +26,11 @@ public class Store {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-//	private Integer managerId;   TO RETURN TO THIS FIELD
 	
+//	private Integer managerId;   TO RETURN TO THIS FIELD
+	@ManyToOne
+	@JoinColumn(name="manager_id")
+	private User user;
 	
 	private String phone;
 	
@@ -30,8 +38,11 @@ public class Store {
 	
 	private String name;
 	
-//	@Column(name = "")
-//	private Address address;   FIX ME
+	//MAKING STORE ENTITY AWARE OF ADDRESS ASSOCIATION
+	@OneToOne
+	@JoinColumn(name="address_id")
+	private Address address;
+	
 	
 	@CreationTimestamp
 	@Column(name = "create_date")
@@ -48,6 +59,16 @@ public class Store {
 	private String imageUrl;
 	
 	private String description;
+	
+	@OneToMany(mappedBy = "store")
+	private List<Comment> comments;
+	
+	@OneToMany(mappedBy = "store")
+	private List<Service> services;
+
+	@OneToMany(mappedBy = "store")
+	private List<Wash> washes;
+	
 	
 	
 
@@ -75,6 +96,46 @@ public class Store {
 
 	
 	//GETTERS AND SETTERS
+
+	public List<Wash> getWashes() {
+		return washes;
+	}
+
+	public void setWashes(List<Wash> washes) {
+		this.washes = washes;
+	}
+
+	public List<Service> getServices() {
+		return services;
+	}
+
+	public void setServices(List<Service> services) {
+		this.services = services;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public int getId() {
 		return id;

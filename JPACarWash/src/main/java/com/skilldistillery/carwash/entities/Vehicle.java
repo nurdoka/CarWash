@@ -1,6 +1,7 @@
 package com.skilldistillery.carwash.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,6 +12,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Vehicle {
@@ -27,8 +31,10 @@ public class Vehicle {
 	
 	private Integer year;
 
-//	@Column(name = "user_id")
-//	private Integer userId;
+	//USER ASSOCIATION (A)
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 
 	@Column(name = "license_plate")
 	private String licensePlate;
@@ -45,7 +51,8 @@ public class Vehicle {
 	
 	private String color;
 
-	
+	@OneToMany(mappedBy = "vehicle")
+	private List<Wash> washes;
 	
 	
 	
@@ -72,6 +79,22 @@ public class Vehicle {
 	
 	//GETTERS AND SETTERS
 	
+	public List<Wash> getWashes() {
+		return washes;
+	}
+
+	public void setWashes(List<Wash> washes) {
+		this.washes = washes;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -1,6 +1,8 @@
 package com.skilldistillery.carwash.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -44,6 +46,18 @@ class AddressTest {
 	void test_Address_entity_mapping() {
 		assertNotNull(address);
 		assertEquals("123 Fake st", address.getStreet());
+	}
+
+	@Test
+	void test_Address_entity_mapping_to_User() {
+		assertNotNull(address);
+		assertTrue(address.getUsers().size() > 0);
+	}
+
+	@Test
+	void test_Address_entity_can_access_Store() {
+		assertNotNull(address);
+		assertEquals("CarWash", address.getStore().getName());
 	}
 	
 	
