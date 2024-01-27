@@ -50,7 +50,7 @@ public class User {
 	@Column(name = "last_update")
 	private LocalDateTime lastUpdate;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="address_id")
 	private Address address;
 	

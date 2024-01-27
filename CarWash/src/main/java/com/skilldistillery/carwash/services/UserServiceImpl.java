@@ -20,7 +20,6 @@ public class UserServiceImpl implements UserService {
 	public User updateUserByUsername(String username,User user) {
 		User userInData = userRepo.findByUsername(username);
 		if (userInData != null) {
-			userInData.setEmail(user.getEmail());
 			userInData.setFirstName(user.getFirstName());
 			userInData.setLastName(user.getLastName());
 			if(user.getAddress() != null) {
