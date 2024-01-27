@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +25,7 @@ public class Comment {
 
 	private String content;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="store_id")
 	private Store store;
