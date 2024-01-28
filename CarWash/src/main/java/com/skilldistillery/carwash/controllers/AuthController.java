@@ -27,7 +27,6 @@ public class AuthController {
 	     res.setStatus(400);
 	     return null;
 	  }
-	  System.out.println(user.getAddress().getCity());
 	  user = authService.register(user);
 	  return user;
 	}

@@ -1,18 +1,37 @@
+import { FormsModule } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule,
+    CommonModule
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent{
 
-  constructor(private auth:AuthService){}
+  username:string = '';
+  password:string = '';
 
-  login(username:string,password:string):void{
-    this.auth.login(username,password)
+  constructor(private auth:AuthService, private router:Router){}
+
+
+  login():void{
+    this.auth.login(this.username,this.password).subscribe({
+      next: (LoggedInUser) => {
+        this.router.navigateByUrl('profile');
+      },
+      error: (problem) => {
+        console.log('LoginComponent.login(): Error logging in user: ' + problem);
+      }
+    });
   }
 }
+
+

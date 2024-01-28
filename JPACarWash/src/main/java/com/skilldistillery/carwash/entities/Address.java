@@ -3,6 +3,8 @@ package com.skilldistillery.carwash.entities;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,12 +28,12 @@ public class Address {
 
 	private String zip;
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "address")
 	private List <User> users;
 	
 	//MAKING ADDRESS ENTITY AWARE OF STORE ASSOCIATION
-	
+	@JsonIgnore
 	@OneToOne(mappedBy = "address")
 	private Store store;
 	

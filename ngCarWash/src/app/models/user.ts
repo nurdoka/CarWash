@@ -8,7 +8,7 @@ export class User {
   role : string;
 
   constructor(
-    id : number = 1,
+    id : number = 0,
     firstName: string = '',
     lastName : string = '',
     username : string = '',
