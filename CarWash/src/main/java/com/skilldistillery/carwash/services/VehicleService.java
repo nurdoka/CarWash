@@ -6,7 +6,7 @@ import com.skilldistillery.carwash.entities.Vehicle;
 
 public interface VehicleService {
 	public List<Vehicle> returnAllVehicles();
-	public List<Vehicle> returnAllVehiclesByUserId(int id);
-	public Vehicle registerVehicle(Vehicle vehicle);
+	public List<Vehicle> returnAllVehiclesByUser(String userName);
+	public Vehicle registerNewVehicle(Vehicle vehicle);
 
 }

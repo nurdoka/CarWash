@@ -31,7 +31,7 @@ public class Address {
 	@JsonIgnore
 	@OneToMany(mappedBy = "address")
 	private List<User> users;
-
+	
 	@JsonIgnore
 	@OneToOne(mappedBy = "address")
 	private Store store;

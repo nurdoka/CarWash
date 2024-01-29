@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.carwash.entities.Store;
 import com.skilldistillery.carwash.entities.User;
 import com.skilldistillery.carwash.repositories.AddressRepository;
 import com.skilldistillery.carwash.repositories.UserRepository;
@@ -38,6 +37,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findAll() {
 		return userRepo.findAll();
+	}
+
+	@Override
+	public User findByUsername(String userName) {
+		User user = userRepo.findByUsername(userName);
+		return user;
 	}
 
 }
