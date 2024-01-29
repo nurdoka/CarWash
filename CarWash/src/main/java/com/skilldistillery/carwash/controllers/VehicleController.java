@@ -56,7 +56,6 @@ public class VehicleController {
 		try {
 	        // Fetch the user by username
 	        User user = userService.findByUsername(principal.getName());
-	        System.out.println(user.getId());
 	        // Associate the user with the vehicle
 	        vehicle.setUser(user);
 
