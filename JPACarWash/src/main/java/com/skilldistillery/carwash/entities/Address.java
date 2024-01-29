@@ -3,6 +3,8 @@ package com.skilldistillery.carwash.entities;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,32 +14,30 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Address {
-	
-	//MEMBER FIELDS
+
+	// MEMBER FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String street;
-	
+
 	private String city;
-	
+
 	private String state;
 
 	private String zip;
-	
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "address")
-	private List <User> users;
-	
-	//MAKING ADDRESS ENTITY AWARE OF STORE ASSOCIATION
-	
+	private List<User> users;
+
+	// MAKING ADDRESS ENTITY AWARE OF STORE ASSOCIATION
+	@JsonIgnore
 	@OneToOne(mappedBy = "address")
 	private Store store;
-	
-	
-	//CONSTRUCTORS
 
+	// CONSTRUCTORS
 
 	public Address(int id, String street, String city, String state, String zip) {
 		super();
@@ -51,10 +51,8 @@ public class Address {
 	public Address() {
 		super();
 	}
-	
-	
-	
-	//GETTERS AND SETTERS
+
+	// GETTERS AND SETTERS
 
 	public Store getStore() {
 		return store;
@@ -112,8 +110,7 @@ public class Address {
 		this.zip = zip;
 	}
 
-	
-	//HASH CODE
+	// HASH CODE
 
 	@Override
 	public int hashCode() {
@@ -133,37 +130,12 @@ public class Address {
 				&& Objects.equals(street, other.street) && Objects.equals(zip, other.zip);
 	}
 
-	
-	
-	
-	
-	//TO STRING
-	
+	// TO STRING
+
 	@Override
 	public String toString() {
 		return "Address [id=" + id + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip
 				+ "]";
 	}
-	
-	
-
-
-	
-	
-	
-	
-	
-	
-	
-
-	
-
-	
-	
-	
-	
-	
-	
-	
 
 }
