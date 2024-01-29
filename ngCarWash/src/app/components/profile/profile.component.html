@@ -1,3 +1,30 @@
-<p>Hello, {{loggedUser?.firstName}} {{loggedUser?.lastName}}</p>
-<p>Address: {{address?.street}}</p>
+<div *ngIf="!selected">
+  <p>Hello, {{loggedUser?.firstName}} {{loggedUser?.lastName}}</p>
+  <button (click)="editUser()" class="btn btn-primary">Edit Profile</button>
+</div>
 
+<div *ngIf="selected">
+  <form>
+    <label for="firstName"><b> Firstname </b></label>
+    <input type="text" placeholder="Enter First Name" name="firstName" [(ngModel)]="selected.firstName"/> <br> <br>
+
+    <label for="lastName"> <b>Lastname </b></label>
+    <input type="text" placeholder="Enter Last Name" name="lastName" [(ngModel)]="selected.lastName" /> <br> <br>
+
+    <label for="street"><b>Street</b></label>
+    <input type="text" placeholder="Enter street" name="street" id="street" [(ngModel)]="selected.address.street" required><br><br>
+
+    <label for="city"><b>City</b></label>
+    <input type="text" placeholder="Enter city" name="city" id="city" [(ngModel)]="selected.address.city" required><br><br>
+
+    <label for="state"><b>State</b></label>
+    <input type="text" placeholder="Enter state" name="state" id="state" [(ngModel)]="selected.address.state" required><br><br>
+
+    <label for="zip"><b>Zip</b></label>
+    <input type="text" placeholder="Enter zip" name="zip" id="zip" [(ngModel)]="selected.address.zip" required><br><br>
+
+    <button (click)="updateUser(selected)" type="submit" class="btn btn-success">Save changes</button>
+    <button (click)="selected=null" type="submit" class="btn btn-danger">Cancel</button>
+
+  </form>
+</div>
