@@ -7,4 +7,6 @@ import com.skilldistillery.carwash.entities.Address;
 
 public interface AddressRepository extends JpaRepository<Address, Integer> {
 	
+	Address findByUsers_Username(String username);
+	
 }

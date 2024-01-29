@@ -1,7 +1,9 @@
-<form>
-  <label for="username">Username</label>
-  <input type="text" name="username" [(ngModel)]="username"/>
-  <label for="password">Password</label>
-  <input type="text" name="password" [(ngModel)]="password"/>
-  <input (click)="login()" type="submit" name="submit"/>
-</form>
+<div class="container">
+  <form>
+    <label for="username">Username</label>
+    <input type="text" name="username" [(ngModel)]="username"/>
+    <label for="password">Password</label>
+    <input type="text" name="password" [(ngModel)]="password"/>
+    <input (click)="login()" type="submit" name="submit"/>
+  </form>
+</div>

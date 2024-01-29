@@ -1,6 +1,8 @@
 import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { AddressService } from '../../services/address.service';
+import { Address } from '../../models/address';
 
 @Component({
   selector: 'app-profile',
@@ -12,10 +14,13 @@ import { AuthService } from '../../services/auth.service';
 export class ProfileComponent implements OnInit{
 
   loggedUser: User | null = null;
-  constructor(private auth: AuthService){}
+  address: Address | null = null;
+
+  constructor(private auth: AuthService,private addressService: AddressService){}
 
   ngOnInit(): void {
     this.getUser();
+    this.getAddress();
   }
 
   getUser():void{
@@ -26,6 +31,18 @@ export class ProfileComponent implements OnInit{
       },
       error: (problem) => {
         console.log('Error getting user: ' + problem);
+      }
+    });
+  }
+
+  getAddress():void{
+    this.addressService.getAddressByUsername().subscribe({
+      next: (address) => {
+        this.address = address;
+        console.log(address);
+      },
+      error: (err) => {
+        console.log('Error getting address: ' + err);
       }
     });
   }
