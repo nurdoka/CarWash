@@ -7,8 +7,12 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,63 +23,58 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Store {
-	
-	
-	//MEMBER FIELDS
+
+	// MEMBER FIELDS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	
+
 //	private Integer managerId;   TO RETURN TO THIS FIELD
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="manager_id")
+	@JoinColumn(name = "manager_id")
 	private User user;
-	
+
 	private String phone;
-	
+
 	private String email;
-	
+
 	private String name;
-	
-	//MAKING STORE ENTITY AWARE OF ADDRESS ASSOCIATION
+
+	// MAKING STORE ENTITY AWARE OF ADDRESS ASSOCIATION
+	@JsonIgnore
 	@OneToOne
-	@JoinColumn(name="address_id")
+	@JoinColumn(name = "address_id")
 	private Address address;
-	
-	
+
 	@CreationTimestamp
 	@Column(name = "create_date")
 	private LocalDateTime createDate;
-	
+
 	@UpdateTimestamp
 	@Column(name = "last_update")
 	private LocalDateTime lastUpdate;
-	
+
 	private boolean enabled;
-	
-	
+
 	@Column(name = "image_url")
 	private String imageUrl;
-	
+
 	private String description;
-	
-	@OneToMany(mappedBy = "store")
+	@JsonIgnore
+	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Comment> comments;
-	
-	@OneToMany(mappedBy = "store")
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
 	private List<Service> services;
 
-	@OneToMany(mappedBy = "store")
+	@JsonIgnore
+	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
 	private List<Wash> washes;
-	
-	
-	
 
-	//CONSTRUCTORS
+	// CONSTRUCTORS
 
-	
-	
 	public Store(int id, String phone, String email, String name, LocalDateTime createDate, LocalDateTime lastUpdate,
 			boolean enabled, String imageUrl, String description) {
 		super();
@@ -94,8 +93,7 @@ public class Store {
 		super();
 	}
 
-	
-	//GETTERS AND SETTERS
+	// GETTERS AND SETTERS
 
 	public List<Wash> getWashes() {
 		return washes;
@@ -209,8 +207,8 @@ public class Store {
 		this.description = description;
 	}
 
-	//HASH CODE
-	
+	// HASH CODE
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(createDate, description, email, enabled, id, imageUrl, lastUpdate, name, phone);
@@ -231,31 +229,12 @@ public class Store {
 				&& Objects.equals(name, other.name) && Objects.equals(phone, other.phone);
 	}
 
-	
-	//TO STRING
+	// TO STRING
 	@Override
 	public String toString() {
 		return "Store [id=" + id + ", phone=" + phone + ", email=" + email + ", name=" + name + ", createDate="
 				+ createDate + ", lastUpdate=" + lastUpdate + ", enabled=" + enabled + ", imageUrl=" + imageUrl
 				+ ", description=" + description + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-
-	
-	
-	
-	
-	
-	
-	
 
 }

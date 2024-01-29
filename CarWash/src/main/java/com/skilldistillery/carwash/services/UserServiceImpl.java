@@ -1,8 +1,11 @@
 package com.skilldistillery.carwash.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.carwash.entities.Store;
 import com.skilldistillery.carwash.entities.User;
 import com.skilldistillery.carwash.repositories.AddressRepository;
 import com.skilldistillery.carwash.repositories.UserRepository;
@@ -30,6 +33,11 @@ public class UserServiceImpl implements UserService {
 			return userRepo.saveAndFlush(userInData);
 		}
 		return null;
+	}
+
+	@Override
+	public List<User> findAll() {
+		return userRepo.findAll();
 	}
 
 }
