@@ -32,10 +32,10 @@ public class CommentController {
 
 	@Autowired
 	private CommentService commentService;
-	
+
 	@Autowired
 	private StoreService storeService;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -43,14 +43,16 @@ public class CommentController {
 
 	// find comment by store id
 	@GetMapping("store/comments/{tid}")
-	public Set<Comment> showCommentByStoreId(HttpServletRequest req, HttpServletResponse res, @PathVariable("tid") int tid) {
+	public Set<Comment> showCommentByStoreId(HttpServletRequest req, HttpServletResponse res,
+			@PathVariable("tid") int tid) {
 		Set<Comment> todos = commentService.findComment_ByStoreId(tid);
 		return todos;
 	}
 
 	// find comment by user id
 	@GetMapping("user/comments/{tid}")
-	public Set<Comment> showCommentByUserId(HttpServletRequest req, HttpServletResponse res, @PathVariable("tid") int tid) {
+	public Set<Comment> showCommentByUserId(HttpServletRequest req, HttpServletResponse res,
+			@PathVariable("tid") int tid) {
 		Set<Comment> todos = commentService.findComment_ByUserId(tid);
 		return todos;
 	}
@@ -59,35 +61,19 @@ public class CommentController {
 	public List<Comment> listPosts(Principal principal, HttpServletResponse res) {
 		return commentService.findAll();
 	}
-	
-	@GetMapping("showStore")
-	public List<Store> listStores(Principal principal, HttpServletResponse res) {
-		return storeService.findAll();
-	}
-	
+
 	@GetMapping("showUser")
 	public List<User> listUsers(Principal principal, HttpServletResponse res) {
 		return userService.findAll();
 	}
 
-	/*@PostMapping("comments")
-	public Comment create(HttpServletRequest req, HttpServletResponse res, @RequestBody Comment comment) {
-		if (comment == null) {
-			res.setStatus(400);
-			return null;
-		}
-		comment = commentService.create(comment);
-		return comment;
-	}*/
-	
-	@PostMapping("ok")
+	@PostMapping("comments")
 	public Comment create(HttpServletRequest req, HttpServletResponse res, @RequestBody Comment comment) {
 		try {
 			comment = commentService.create(username, comment);
 			if (comment == null) {
 				res.setStatus(401);
-			}
-			else {
+			} else {
 				res.setStatus(201);
 				res.setHeader("Location", req.getRequestURL().append("/").append(comment.getId()).toString());
 			}
@@ -98,10 +84,10 @@ public class CommentController {
 		}
 		return comment;
 	}
-	
+
 	@PutMapping("comments/{tid}")
-	public Comment update(HttpServletRequest req, HttpServletResponse res, 
-			@PathVariable("tid") int tid, @RequestBody Comment comment) {
+	public Comment update(HttpServletRequest req, HttpServletResponse res, @PathVariable("tid") int tid,
+			@RequestBody Comment comment) {
 		Comment updated = null;
 		try {
 			updated = commentService.update(username, tid, comment);
@@ -114,16 +100,13 @@ public class CommentController {
 		}
 		return updated;
 	}
-	
-	
+
 	@DeleteMapping("comments/{tid}")
-	public void destroy(HttpServletRequest req, HttpServletResponse res, 
-			@PathVariable("tid") int tid) {
+	public void destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("tid") int tid) {
 		try {
 			if (commentService.destroy(username, tid)) {
 				res.setStatus(204);
-			}
-			else {
+			} else {
 				res.setStatus(404);
 			}
 		} catch (Exception e) {

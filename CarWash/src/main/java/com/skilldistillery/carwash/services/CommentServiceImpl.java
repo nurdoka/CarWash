@@ -16,45 +16,33 @@ public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private CommentRepository commentRepo;
-	
+
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Override
 	public Set<Comment> findComment_ByStoreId(int storeId) {
 		return commentRepo.findComment_ByStoreId(storeId);
 	}
-	
+
 	@Override
 	public Set<Comment> findComment_ByUserId(int userId) {
 		return commentRepo.findComment_ByUserId(userId);
 	}
-	
-	
+
 	@Override
-    public List<Comment> findAll() {
-        return commentRepo.findAll();
-    }
-	
-	/*@Override
-	public Comment create(Comment comment) {
-		if (comment != null) {
-			// Save the new comment to the database
-			return commentRepo.saveAndFlush(comment);
-		}
-        return null;
-	}*/
+	public List<Comment> findAll() {
+		return commentRepo.findAll();
+	}
 
 	@Override
 	public Comment create(String username, Comment comment) {
 		User user = userRepo.findByUsername(username);
-		if(user != null) {
-			System.out.println("hi");
+		if (user != null) {
 			comment.setUser(user);
 			return commentRepo.saveAndFlush(comment);
 		}
 		return null;
-		
 	}
 
 	@Override
@@ -77,10 +65,6 @@ public class CommentServiceImpl implements CommentService {
 			deleted = true;
 		}
 		return deleted;
-	
 	}
 
-
 }
-
-

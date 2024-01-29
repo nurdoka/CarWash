@@ -42,8 +42,8 @@ public class Store {
 	private String name;
 
 	// MAKING STORE ENTITY AWARE OF ADDRESS ASSOCIATION
-	@JsonIgnore
-	@OneToOne
+	//@JsonIgnore
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "address_id")
 	private Address address;
 

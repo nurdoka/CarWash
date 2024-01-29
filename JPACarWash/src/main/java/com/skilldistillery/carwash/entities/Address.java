@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,12 +31,12 @@ public class Address {
 
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "address")
+	@OneToMany(mappedBy = "address", cascade = CascadeType.MERGE)
 	private List <User> users;
 	
 	//MAKING ADDRESS ENTITY AWARE OF STORE ASSOCIATION
 	@JsonIgnore
-	@OneToOne(mappedBy = "address")
+	@OneToOne(mappedBy = "address", cascade = CascadeType.MERGE)
 	private Store store;
 
 	// CONSTRUCTORS
