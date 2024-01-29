@@ -27,12 +27,21 @@ public class Address {
 	private String state;
 
 	private String zip;
+<<<<<<< HEAD
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "address")
 	private List<User> users;
 
 	// MAKING ADDRESS ENTITY AWARE OF STORE ASSOCIATION
+=======
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "address")
+	private List <User> users;
+	
+	//MAKING ADDRESS ENTITY AWARE OF STORE ASSOCIATION
+>>>>>>> e65409b1d2b1a6221d408bc2ade9db8859e138be
 	@JsonIgnore
 	@OneToOne(mappedBy = "address")
 	private Store store;

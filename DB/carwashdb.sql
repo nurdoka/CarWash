@@ -268,6 +268,7 @@ COMMIT;
 START TRANSACTION;
 USE `carwashdb`;
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `username`, `password`, `enabled`, `role`, `address_id`, `create_date`, `last_update`) VALUES (1, 'John', 'Doe', 'some@gmail.com', 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'CUSTOMER', 1, NULL, NULL);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `username`, `password`, `enabled`, `role`, `address_id`, `create_date`, `last_update`) VALUES (2, 'Jane', 'Doe', 'customer1@gmail.com', 'cus1', '123', 1, 'CUSTOMER', 1, NULL, NULL);
 
 COMMIT;
 
@@ -288,6 +289,8 @@ COMMIT;
 START TRANSACTION;
 USE `carwashdb`;
 INSERT INTO `store` (`id`, `manager_id`, `phone`, `email`, `name`, `address_id`, `create_date`, `last_update`, `enabled`, `image_url`, `description`) VALUES (1, 1, '720-100-2000', 'some@gmail.com', 'CarWash', 1, NULL, NULL, 1, 'somepic.com', 'best store');
+INSERT INTO `store` (`id`, `manager_id`, `phone`, `email`, `name`, `address_id`, `create_date`, `last_update`, `enabled`, `image_url`, `description`) VALUES (2, 1, '720-100-2001', 'some2@gmail.com', 'CarWash2', 1, NULL, NULL, 1, 'pic01.com', 'next best');
+INSERT INTO `store` (`id`, `manager_id`, `phone`, `email`, `name`, `address_id`, `create_date`, `last_update`, `enabled`, `image_url`, `description`) VALUES (3, 1, '720-100-2002', 'some3@gmail.com', 'CarWash3', 1, NULL, NULL, 1, 'pic02.com', 'worst');
 
 COMMIT;
 
@@ -328,6 +331,11 @@ COMMIT;
 START TRANSACTION;
 USE `carwashdb`;
 INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (1, 'cool place', 1, 1, NULL);
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (2, 'cool place 2', 2, 1, NULL);
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (3, 'cool place 3', 3, 1, NULL);
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (4, 'cool place #1', 1, 2, NULL);
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (5, 'cool place #2', 2, 2, NULL);
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (6, 'cool place #3', 3, 2, NULL);
 
 COMMIT;
 

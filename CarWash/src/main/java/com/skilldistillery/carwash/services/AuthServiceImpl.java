@@ -19,13 +19,11 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public User register(User user) {
 		user.setEnabled(true);
-		if (user.getRole() == null) {
+		if (user.getRole() == null || user.getRole().equals("")) {
 			user.setRole("CUSTOMER");
 		}
 		String encryptedPassword = encoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
-		  System.out.println(user.getAddress());
-		  System.out.println(user.getFirstName());
 		return userRepo.saveAndFlush(user);
 	}
 

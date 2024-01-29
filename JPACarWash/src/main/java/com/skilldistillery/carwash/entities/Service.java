@@ -3,6 +3,8 @@ package com.skilldistillery.carwash.entities;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class Service {
 	
 	private Double cost;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="store_id")
 	private Store store; 

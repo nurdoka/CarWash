@@ -1,8 +1,13 @@
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @Component({
   selector: 'app-root',
@@ -10,29 +15,19 @@ import { LoginComponent } from './components/login/login.component';
   imports: [
     CommonModule,
     RouterOutlet,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent,
+    HomeComponent,
+    NavigationComponent,
+    AboutComponent,
+    ContactComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  constructor(private auth: AuthService){};
+  constructor(){};
 
-  ngOnInit() {
-    this.tempTestDeleteMeLater(); // DELETE LATER!!!
-  }
 
-  tempTestDeleteMeLater() {
-    this.auth.login('admin','test').subscribe({ // change username to match DB
-      next: (data) => {
-        console.log('Logged in:');
-        console.log(data);
-      },
-      error: (fail) => {
-        console.error('Error authenticating:')
-        console.error(fail);
-      }
-    });
-  }
 }

@@ -1,6 +1,5 @@
 package com.skilldistillery.carwash.entities;
 
-import jakarta.persistence.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
