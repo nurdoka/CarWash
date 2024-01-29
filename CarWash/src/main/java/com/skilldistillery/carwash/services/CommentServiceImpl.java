@@ -1,12 +1,15 @@
 package com.skilldistillery.carwash.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.carwash.entities.Comment;
+import com.skilldistillery.carwash.entities.User;
 import com.skilldistillery.carwash.repositories.CommentRepository;
+import com.skilldistillery.carwash.repositories.UserRepository;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -14,26 +17,44 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private CommentRepository commentRepo;
 	
+	@Autowired
+	private UserRepository userRepo;
+	
 	@Override
-    public Comment findById(int commentId) {
-        return commentRepo.findById(commentId).orElse(null);
-        // or you can throw an exception if not found
-        // return commentRepo.findById(commentId).orElseThrow(() -> new NotFoundException("Comment not found with id: " + commentId));
-    }
+	public Set<Comment> findComment_ByStoreId(int storeId) {
+		return commentRepo.findComment_ByStoreId(storeId);
+	}
+	
+	@Override
+	public Set<Comment> findComment_ByUserId(int userId) {
+		return commentRepo.findComment_ByUserId(userId);
+	}
+	
 	
 	@Override
     public List<Comment> findAll() {
         return commentRepo.findAll();
     }
 	
-	@Override
-	public Comment create(Comment newComment) {
-		if (newComment != null) {
+	/*@Override
+	public Comment create(Comment comment) {
+		if (comment != null) {
 			// Save the new comment to the database
-			Comment savedComment = commentRepo.save(newComment);
-			return savedComment;
+			return commentRepo.saveAndFlush(comment);
 		}
         return null;
+	}*/
+
+	@Override
+	public Comment create(String username, Comment comment) {
+		User user = userRepo.findByUsername(username);
+		if(user != null) {
+			System.out.println("hi");
+			comment.setUser(user);
+			return commentRepo.saveAndFlush(comment);
+		}
+		return null;
+		
 	}
 
 	

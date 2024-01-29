@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,13 +26,16 @@ public class Comment {
 
 	private String content;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="store_id")
+	//@JsonIgnore
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name = "store_id")
 	private Store store;
 
-//	@Column(name = "user_id")
-//	private User user;             COME BACK AND FIX ME
+	// @Column(name = "user_id")
+	//@JsonIgnore
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name = "user_id")
+	private User user; // COME BACK AND FIX ME
 
 	@CreationTimestamp
 	@Column(name = "comment_date")
@@ -39,18 +43,16 @@ public class Comment {
 
 	// CONSTRUCTORS
 
-	public Comment(int id, String content, LocalDateTime commentDate) {
-		super();
-		this.id = id;
-		this.content = content;
-		this.commentDate = commentDate;
-	}
-
 	public Comment() {
 		super();
 	}
 
-//GETTERS AND SETTERS
+	/*
+	 * public Comment(int id, String content, LocalDateTime commentDate) { super();
+	 * this.id = id; this.content = content; this.commentDate = commentDate; }
+	 */
+
+	//GETTERS AND SETTERS
 
 	public Store getStore() {
 		return store;
@@ -84,11 +86,19 @@ public class Comment {
 		this.commentDate = commentDate;
 	}
 
-//HASH CODE
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	// HASH CODE
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(commentDate, content, id);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -100,15 +110,15 @@ public class Comment {
 		if (getClass() != obj.getClass())
 			return false;
 		Comment other = (Comment) obj;
-		return Objects.equals(commentDate, other.commentDate) && Objects.equals(content, other.content)
-				&& id == other.id;
+		return id == other.id;
 	}
 
-//TO STRING
+	//TO STRING
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", content=" + content + ", commentDate=" + commentDate + "]";
+		return "Comment [id=" + id + ", content=" + content + ", store=" + store + ", user=" + user + ", commentDate="
+				+ commentDate + "]";
 	}
 
 }
