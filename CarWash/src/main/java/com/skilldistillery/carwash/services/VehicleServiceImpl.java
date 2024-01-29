@@ -16,9 +16,9 @@ public class VehicleServiceImpl implements VehicleService {
 
 	
 	@Override
-	public Vehicle registerVehicle(Vehicle vehicle) {
-		// TODO Auto-generated method stub
-		return null;
+	public Vehicle registerNewVehicle(Vehicle vehicle) {
+		vehicleRepo.saveAndFlush(vehicle);
+		return vehicle;
 	}
 
 
@@ -29,8 +29,9 @@ public class VehicleServiceImpl implements VehicleService {
 
 
 	@Override
-	public List<Vehicle> returnAllVehiclesByUserId(int id) {
-		List<Vehicle> vehicles = vehicleRepo.searchByUserId(id);
+	public List<Vehicle> returnAllVehiclesByUser(String userName) {
+//		List<Vehicle> vehicles = vehicleRepo.searchByUserName(userName); --ORIGINAL CODE
+		List<Vehicle> vehicles = vehicleRepo.searchByUser_Username(userName);
 		return vehicles;
 	}
 
