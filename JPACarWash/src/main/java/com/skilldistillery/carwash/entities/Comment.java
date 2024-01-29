@@ -27,15 +27,14 @@ public class Comment {
 	private String content;
 
 	//@JsonIgnore
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "store_id")
 	private Store store;
 
-	// @Column(name = "user_id")
-	//@JsonIgnore
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "user_id")
-	private User user; // COME BACK AND FIX ME
+	private User user;
 
 	@CreationTimestamp
 	@Column(name = "comment_date")
@@ -47,12 +46,7 @@ public class Comment {
 		super();
 	}
 
-	/*
-	 * public Comment(int id, String content, LocalDateTime commentDate) { super();
-	 * this.id = id; this.content = content; this.commentDate = commentDate; }
-	 */
-
-	//GETTERS AND SETTERS
+	// GETTERS AND SETTERS
 
 	public Store getStore() {
 		return store;
@@ -113,7 +107,7 @@ public class Comment {
 		return id == other.id;
 	}
 
-	//TO STRING
+	// TO STRING
 
 	@Override
 	public String toString() {

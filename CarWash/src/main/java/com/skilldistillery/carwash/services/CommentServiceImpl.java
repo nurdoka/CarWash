@@ -57,6 +57,30 @@ public class CommentServiceImpl implements CommentService {
 		
 	}
 
+	@Override
+	public Comment update(String username, int tid, Comment comment) {
+		Comment existing = commentRepo.findByUser_UsernameAndId(username, tid);
+		if (existing != null) {
+			existing.setContent(comment.getContent());
+			existing.setCommentDate(comment.getCommentDate());
+			return commentRepo.saveAndFlush(existing);
+		}
+		return existing;
+	}
+
+	@Override
+	public boolean destroy(String username, int tid) {
+		boolean deleted = false;
+		Comment toBeDeleted = commentRepo.findByUser_UsernameAndId(username, tid);
+		if (toBeDeleted != null) {
+			commentRepo.delete(toBeDeleted);
+			deleted = true;
+		}
+		return deleted;
 	
+	}
+
 
 }
+
+
