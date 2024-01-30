@@ -24,7 +24,6 @@ export class RegisterComponent {
   constructor(private auth: AuthService, private router: Router){}
 
   register(user: User): void {
-
     console.log('Registering user:');
     console.log(user);
     this.auth.register(user).subscribe({

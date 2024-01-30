@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.carwash.entities.User;
 import com.skilldistillery.carwash.entities.Vehicle;
-import com.skilldistillery.carwash.services.UserService;
 import com.skilldistillery.carwash.services.VehicleService;
 
 import jakarta.servlet.http.HttpServletRequest;
