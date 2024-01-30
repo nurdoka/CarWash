@@ -52,7 +52,6 @@ public class User {
 	@Column(name = "last_update")
 	private LocalDateTime lastUpdate;
 	
-	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="address_id")
 	private Address address;

@@ -1,6 +1,48 @@
 <div *ngIf="!selected">
   <p>Hello, {{loggedUser?.firstName}} {{loggedUser?.lastName}}</p>
-  <button (click)="editUser()" class="btn btn-primary">Edit Profile</button>
+  <button (click)="editUser()" class="btn btn-primary">Edit Profile</button><br><br>
+
+
+<div *ngIf="!selectedVehicle">
+  <button (click)="setAddVehicle()" class="btn btn-success">Add Vehicle</button>
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>YEAR</th>
+        <th>MAKE</th>
+        <th>MODEL</th>
+        <th>COLOR</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr  *ngFor="let vehicle of vehicles">
+        <td>{{vehicle.year}}</td>
+        <td>{{vehicle.make}}</td>
+        <td>{{vehicle.model}}</td>
+        <td>{{vehicle.color}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div *ngIf="selectedVehicle">
+  <form>
+    <label for="year"><b> Year </b></label>
+    <input type="text" placeholder="Enter Year" name="year" [(ngModel)]="selectedVehicle.year"/> <br> <br>
+    <label for="make"><b> Make </b></label>
+    <input type="text" placeholder="Enter Make" name="make" [(ngModel)]="selectedVehicle.make"/> <br> <br>
+    <label for="model"><b> Model </b></label>
+    <input type="text" placeholder="Enter Model" name="model" [(ngModel)]="selectedVehicle.model"/> <br> <br>
+    <label for="color"><b> Color </b></label>
+    <input type="text" placeholder="Enter Color" name="color" [(ngModel)]="selectedVehicle.color"/> <br> <br>
+    <label for="licensePlate"><b> License Plate </b></label>
+    <input type="text" placeholder="Enter License Plate" name="licensePlate" [(ngModel)]="selectedVehicle.licensePlate"/> <br> <br>
+
+    <button (click)="addVehicle(selectedVehicle)" type="submit" class="btn btn-success">Add</button>
+    <button (click)="selectedVehicle=null" type="submit" class="btn btn-danger">Cancel</button>
+
+  </form>
 </div>
 
 <div *ngIf="selected">

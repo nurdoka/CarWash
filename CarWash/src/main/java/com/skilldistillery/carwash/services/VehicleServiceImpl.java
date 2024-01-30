@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.carwash.entities.User;
 import com.skilldistillery.carwash.entities.Vehicle;
 import com.skilldistillery.carwash.repositories.VehicleRepository;
 
@@ -14,9 +15,16 @@ public class VehicleServiceImpl implements VehicleService {
 	@Autowired
 	private VehicleRepository vehicleRepo;
 
+	@Autowired
+	private UserService userService;
 	
 	@Override
-	public Vehicle registerNewVehicle(Vehicle vehicle) {
+	public Vehicle registerNewVehicle(Vehicle vehicle,String username) {
+        // Fetch the user by username
+        User user = userService.findByUsername(username);
+        // Associate the user with the vehicle
+        vehicle.setUser(user);
+        vehicle.setEnabled(true);
 		vehicleRepo.saveAndFlush(vehicle);
 		return vehicle;
 	}
