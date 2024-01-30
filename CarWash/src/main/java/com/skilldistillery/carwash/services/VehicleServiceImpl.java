@@ -31,8 +31,21 @@ public class VehicleServiceImpl implements VehicleService {
 	@Override
 	public List<Vehicle> returnAllVehiclesByUser(String userName) {
 //		List<Vehicle> vehicles = vehicleRepo.searchByUserName(userName); --ORIGINAL CODE
-		List<Vehicle> vehicles = vehicleRepo.searchByUser_Username(userName);
+//		List<Vehicle> vehicles = vehicleRepo.searchByUser_Username(userName);  
+		List<Vehicle> vehicles = vehicleRepo.findEnabledVehiclesByUsername(userName);
 		return vehicles;
+	}
+
+	@Override
+	public Vehicle findById(int id) {
+		return vehicleRepo.searchById(id);
+	}
+	
+	
+	@Override
+	public Vehicle updateVehicle(Vehicle vehicle) {
+		vehicleRepo.saveAndFlush(vehicle);
+		return vehicle;
 	}
 
 }
