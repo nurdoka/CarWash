@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User updateUserByUsername(String username,User user) {
 		User userInData = userRepo.findByUsername(username);
+		
 		if (userInData != null) {
 			userInData.setFirstName(user.getFirstName());
 			userInData.setLastName(user.getLastName());

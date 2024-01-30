@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.carwash.entities.User;
+import com.skilldistillery.carwash.repositories.AddressRepository;
 import com.skilldistillery.carwash.repositories.UserRepository;
 
 @Service
@@ -15,6 +16,8 @@ public class AuthServiceImpl implements AuthService {
 
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	private AddressRepository addressRepo;
 
 	@Override
 	public User register(User user) {
@@ -24,6 +27,9 @@ public class AuthServiceImpl implements AuthService {
 		}
 		String encryptedPassword = encoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
+		if(user.getAddress() != null) {
+			addressRepo.saveAndFlush(user.getAddress());
+		}
 		return userRepo.saveAndFlush(user);
 	}
 

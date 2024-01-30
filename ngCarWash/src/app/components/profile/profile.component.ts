@@ -22,7 +22,7 @@ import { Vehicle } from '../../models/vehicle';
 })
 export class ProfileComponent implements OnInit{
 
-  loggedUser: User | null = null;
+  loggedUser: User = new User();
   address: Address | null = null;
   selected: User | null = null;
   selectedVehicle : Vehicle | null = null;
@@ -74,6 +74,7 @@ export class ProfileComponent implements OnInit{
   }
 
   updateUser(user: User):void{
+    console.log(this.loggedUser);
     this.userServ.updateUser(user).subscribe({
       next: (updatedUser) => {
         console.log('Updated user');
