@@ -1,6 +1,27 @@
 <div *ngIf="!selected">
   <p>Hello, {{loggedUser?.firstName}} {{loggedUser?.lastName}}</p>
-  <button (click)="editUser()" class="btn btn-primary">Edit Profile</button>
+  <button (click)="editUser()" class="btn btn-primary">Edit Profile</button><br><br>
+</div>
+
+<div>
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>YEAR</th>
+        <th>MAKE</th>
+        <th>MODEL</th>
+        <th>COLOR</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr  *ngFor="let vehicle of vehicles">
+        <td>{{vehicle.year}}</td>
+        <td>{{vehicle.make}}</td>
+        <td>{{vehicle.model}}</td>
+        <td>{{vehicle.color}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <div *ngIf="selected">

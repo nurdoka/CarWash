@@ -29,20 +29,20 @@ public class VehicleController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("vehicles")
-	public List<Vehicle> returningAllVehiclesController(HttpServletRequest req, HttpServletResponse res) {
-		List<Vehicle> VehiclesInDatabase = null;
-		try {
-			VehiclesInDatabase = vehicleService.returnAllVehicles();
-			if(VehiclesInDatabase.size() < 1) {
-				res.setStatus(404);
-			}
-		} catch (Exception e) {
-			res.setStatus(400);
-			e.printStackTrace();
-		}
-		return VehiclesInDatabase;
-	}
+//	@GetMapping("vehicles")
+//	public List<Vehicle> returningAllVehiclesController(HttpServletRequest req, HttpServletResponse res) {
+//		List<Vehicle> VehiclesInDatabase = null;
+//		try {
+//			VehiclesInDatabase = vehicleService.returnAllVehicles();
+//			if(VehiclesInDatabase.size() < 1) {
+//				res.setStatus(404);
+//			}
+//		} catch (Exception e) {
+//			res.setStatus(400);
+//			e.printStackTrace();
+//		}
+//		return VehiclesInDatabase;
+//	}
 	
 
 	// GET VEHICLES BY USER NAME
@@ -52,7 +52,7 @@ public class VehicleController {
 	}
 
 	// REGISTER VEHICLE
-	@PostMapping(path="vehicle")
+	@PostMapping(path="vehicles")
 	public Vehicle createNewVehicle(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Vehicle vehicle){
 		try {
 	        // Fetch the user by username

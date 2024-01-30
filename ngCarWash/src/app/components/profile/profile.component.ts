@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { VehicleService } from '../../services/vehicle.service';
+import { Vehicle } from '../../models/vehicle';
 
 @Component({
   selector: 'app-profile',
@@ -23,16 +25,31 @@ export class ProfileComponent implements OnInit{
   loggedUser: User | null = null;
   address: Address | null = null;
   selected: User | null = null;
+  vehicles : Vehicle[] = [];
 
   constructor(
     private auth: AuthService,
     private addressService: AddressService,
     private userServ: UserService,
-    private router: Router
+    private router: Router,
+    private vehicleService : VehicleService
     ){}
 
   ngOnInit(): void {
     this.getUser();
+    this.vehicleList();
+  }
+
+  vehicleList():void{
+    this.vehicleService.index().subscribe({
+      next: (vehicles) => {
+        this.vehicles = vehicles;
+        console.log('Retrieved vehicle list');
+      },
+      error : (err) => {
+        console.log('Error retrieving vehicleList(): ' + err);
+      }
+    });
   }
 
   editUser():void{
