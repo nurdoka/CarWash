@@ -26,8 +26,6 @@ public class VehicleController {
 
 	@Autowired
 	private VehicleService vehicleService;
-	@Autowired
-	private UserService userService;
 	
 //	@GetMapping("vehicles")
 //	public List<Vehicle> returningAllVehiclesController(HttpServletRequest req, HttpServletResponse res) {
@@ -46,22 +44,17 @@ public class VehicleController {
 	
 
 	// GET VEHICLES BY USER NAME
-	@GetMapping(path="vehicles/byuser")
+	@GetMapping("vehicles")
 	public List<Vehicle> returningAllVehiclesByUserIdController(HttpServletRequest req, HttpServletResponse res, Principal principal){
 	  return vehicleService.returnAllVehiclesByUser(principal.getName());
 	}
 
 	// REGISTER VEHICLE
-	@PostMapping(path="vehicles")
+	@PostMapping("vehicles")
 	public Vehicle createNewVehicle(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Vehicle vehicle){
 		try {
-	        // Fetch the user by username
-	        User user = userService.findByUsername(principal.getName());
-	        // Associate the user with the vehicle
-	        vehicle.setUser(user);
-
 	        // Save the vehicle
-	        vehicleService.registerNewVehicle(vehicle);
+	        vehicleService.registerNewVehicle(vehicle,principal.getName());
 
 	        return vehicle;
 	    } catch (Exception e) {

@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit{
   loggedUser: User | null = null;
   address: Address | null = null;
   selected: User | null = null;
+  selectedVehicle : Vehicle | null = null;
   vehicles : Vehicle[] = [];
 
   constructor(
@@ -40,6 +41,9 @@ export class ProfileComponent implements OnInit{
     this.vehicleList();
   }
 
+  setAddVehicle():void{
+    this.selectedVehicle = new Vehicle();
+  }
   vehicleList():void{
     this.vehicleService.index().subscribe({
       next: (vehicles) => {
@@ -48,6 +52,19 @@ export class ProfileComponent implements OnInit{
       },
       error : (err) => {
         console.log('Error retrieving vehicleList(): ' + err);
+      }
+    });
+  }
+
+  addVehicle(vehicle: Vehicle):void{
+    this.vehicleService.addVehicle(vehicle).subscribe({
+      next: (addedVehicle) => {
+        console.log('Vehicle added');
+        this.vehicleList();
+        this.selectedVehicle = null;
+      },
+      error : (err) => {
+        console.log('Error adding vehicle: ' + err);
       }
     });
   }

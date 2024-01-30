@@ -37,4 +37,15 @@ export class VehicleService {
       })
     );
   }
+
+  addVehicle(vehicle: Vehicle): Observable<Vehicle> {
+    return this.http.post<Vehicle>(this.url, vehicle, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('VehicleService.addVehicle(): error adding vehicle: ' + err)
+        );
+      })
+    );
+  }
 }
