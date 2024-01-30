@@ -44,6 +44,7 @@ public class VehicleController {
 		return VehiclesInDatabase;
 	}
 	
+
 	// GET VEHICLES BY USER NAME
 	@GetMapping(path="vehicles/byuser")
 	public List<Vehicle> returningAllVehiclesByUserIdController(HttpServletRequest req, HttpServletResponse res, Principal principal){
