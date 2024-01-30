@@ -1,12 +1,10 @@
 package com.skilldistillery.carwash.services;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.carwash.entities.Comment;
 import com.skilldistillery.carwash.entities.Store;
 import com.skilldistillery.carwash.entities.User;
 import com.skilldistillery.carwash.repositories.StoreRepository;

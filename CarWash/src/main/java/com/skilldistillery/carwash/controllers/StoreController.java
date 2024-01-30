@@ -1,6 +1,5 @@
 package com.skilldistillery.carwash.controllers;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.carwash.entities.Comment;
 import com.skilldistillery.carwash.entities.Store;
 import com.skilldistillery.carwash.services.StoreService;
 
@@ -32,7 +30,7 @@ public class StoreController {
 	private String username = "admin";
 
 	@GetMapping("stores")
-	public List<Store> listStores(Principal principal, HttpServletResponse res) {
+	public List<Store> listStores(HttpServletResponse res) {
 		return storeService.findAll();
 	}
 
