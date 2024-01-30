@@ -70,14 +70,21 @@ public class VehicleController {
 	// UPDATE VEHICLE CONTROLLER, UPDATING SPECIFIC FIELDS BY VEHICLE ID
 		@PutMapping(path="vehicle")
 		public ResponseEntity<Vehicle> updateVehicle(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Vehicle vehicleToBeUpdated){
-//			System.out.println(updateVehicle.getModel());
-	        // Fetch the existing vehicle from the database
+			// Step 1: Extract the username
+		    String username = principal.getName();
+		    
+		    // Step 2: Fetch the existing vehicle from the database
 	        Vehicle existingVehicle = vehicleService.findById(vehicleToBeUpdated.getId());
-//	        System.out.println("existing vehicle by id =" + updateVehicle.getId() + " in the DB it is model = " + existingVehicle.getModel());
+
 	        if (existingVehicle == null) {
 	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        }
 
+	        // Step 3: Check if the authenticated user is the owner of the vehicle
+	        if (!existingVehicle.getUser().getUsername().equals(username)) {
+	            return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 403 Forbidden
+	        }
+	        
 //	        //Update the existing vehicle with the new data
 	        existingVehicle.setMake(vehicleToBeUpdated.getMake());
 	        existingVehicle.setModel(vehicleToBeUpdated.getModel());
@@ -92,5 +99,37 @@ public class VehicleController {
 	        return new ResponseEntity<>(savedVehicle, HttpStatus.OK);
 	    }
 	
+		
+		
+//		// DELETE VEHICLE CONTROLLER, UPDATING THE VEHICLE TO DEACTIVIATE BY ID
+//		@PutMapping(path="vehicle")
+//		public ResponseEntity<Vehicle> updateVehicle(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Vehicle vehicleToBeUpdated){
+////			System.out.println(updateVehicle.getModel());
+//			// Fetch the existing vehicle from the database
+//			Vehicle existingVehicle = vehicleService.findById(vehicleToBeUpdated.getId());
+////	        System.out.println("existing vehicle by id =" + updateVehicle.getId() + " in the DB it is model = " + existingVehicle.getModel());
+//			if (existingVehicle == null) {
+//				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//			}
+//			
+////	        //Update the existing vehicle with the new data
+//			existingVehicle.setMake(vehicleToBeUpdated.getMake());
+//			existingVehicle.setModel(vehicleToBeUpdated.getModel());
+//			existingVehicle.setYear(vehicleToBeUpdated.getYear());
+//			existingVehicle.setLicensePlate(vehicleToBeUpdated.getLicensePlate());
+//			existingVehicle.setColor(vehicleToBeUpdated.getColor());
+////
+////	        // Save the updated vehicle to the database
+//			Vehicle savedVehicle = vehicleService.updateVehicle(existingVehicle);
+////
+////	        // Return the updated vehicle in the response
+//			return new ResponseEntity<>(savedVehicle, HttpStatus.OK);
+//		}
+		
+		
+		
+		
+		
+		
 	
 }
