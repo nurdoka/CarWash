@@ -10,5 +10,5 @@ public interface VehicleService {
 	public Vehicle findById(int id);
 	public Vehicle updateVehicle(Vehicle vehicle);
 	public Vehicle registerNewVehicle(Vehicle vehicle,String username);
-
+	public boolean deleteVehicle(Vehicle existingVehicle);
 }

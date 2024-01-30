@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -101,35 +103,36 @@ public class VehicleController {
 	
 		
 		
-//		// DELETE VEHICLE CONTROLLER, UPDATING THE VEHICLE TO DEACTIVIATE BY ID
-//		@PutMapping(path="vehicle")
-//		public ResponseEntity<Vehicle> updateVehicle(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Vehicle vehicleToBeUpdated){
-////			System.out.println(updateVehicle.getModel());
-//			// Fetch the existing vehicle from the database
-//			Vehicle existingVehicle = vehicleService.findById(vehicleToBeUpdated.getId());
-////	        System.out.println("existing vehicle by id =" + updateVehicle.getId() + " in the DB it is model = " + existingVehicle.getModel());
-//			if (existingVehicle == null) {
-//				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//			}
-//			
-////	        //Update the existing vehicle with the new data
-//			existingVehicle.setMake(vehicleToBeUpdated.getMake());
-//			existingVehicle.setModel(vehicleToBeUpdated.getModel());
-//			existingVehicle.setYear(vehicleToBeUpdated.getYear());
-//			existingVehicle.setLicensePlate(vehicleToBeUpdated.getLicensePlate());
-//			existingVehicle.setColor(vehicleToBeUpdated.getColor());
-////
-////	        // Save the updated vehicle to the database
-//			Vehicle savedVehicle = vehicleService.updateVehicle(existingVehicle);
-////
-////	        // Return the updated vehicle in the response
-//			return new ResponseEntity<>(savedVehicle, HttpStatus.OK);
-//		}
-		
-		
-		
-		
-		
-		
+		// DELETE VEHICLE CONTROLLER, UPDATING THE VEHICLE TO DEACTIVIATE BY ID
+		// THIS IS A PSUDO DELETE
+		@DeleteMapping(path="vehicle/{id}")
+		public ResponseEntity<Vehicle> deleteVehicle(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable("id") int vehicleId){
+			// Step 1: Extract the username
+	        String username = principal.getName();
+	        
+	        // Step 2: delete from the Database
+	        Vehicle existingVehicle = vehicleService.findById(vehicleId);
+
+	        if (existingVehicle == null) {
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found
+	        }
+
+	        // Step 3: Perform necessary validation or authorization checks
+	        if (!existingVehicle.getUser().getUsername().equals(username)) {
+	            return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 403 Forbidden
+	        }
+	        
+	        // Step 5: Final processing step for Deleting the vehicle
+	        boolean deleted = vehicleService.deleteVehicle(existingVehicle);
+
+	        if (deleted) {
+	            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 No Content - meaning data is cleared now
+	        } else { 
+	        	return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Data no longer Found
+	        }
+			
+			
+		}
+	
 	
 }

@@ -55,5 +55,21 @@ public class VehicleServiceImpl implements VehicleService {
 		vehicleRepo.saveAndFlush(vehicle);
 		return vehicle;
 	}
+	
+	@Override
+    public boolean deleteVehicle(Vehicle existingVehicle) {
+		if (existingVehicle != null) {
+	        // Set enabled flag to false
+	        existingVehicle.setEnabled(false);
+
+	        // Save and flush the updated entity to the database
+	        vehicleRepo.saveAndFlush(existingVehicle);
+
+	        return true; // Indicate successful soft delete
+	    }
+
+	    return false; // Indicate that the entity was not found
+	}
+	
 
 }
