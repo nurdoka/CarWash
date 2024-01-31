@@ -33,6 +33,12 @@ public class StoreController {
 	public List<Store> listStores(HttpServletResponse res) {
 		return storeService.findAll();
 	}
+	
+	@GetMapping("stores/{tid}")
+	public Store listStore(HttpServletResponse res, @PathVariable ("tid") int storeId) {
+		return storeService.findStore_ByStoreId(storeId);
+	}
+	
 
 	/*
 	 * @GetMapping("store/{tid}") public Store

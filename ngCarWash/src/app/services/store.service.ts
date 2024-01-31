@@ -37,4 +37,15 @@ export class StoreService {
         })
       );
     }
+
+    show(storeId : number): Observable<Store> {
+      return this.http.get<Store>(this.url+"/"+storeId, this.getHttpOptions()).pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            () => new Error('StoreService.index(): error retrieving stores: ' + err)
+          );
+        })
+      );
+    }
 }

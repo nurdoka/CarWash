@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.carwash.entities.Comment;
-import com.skilldistillery.carwash.entities.Store;
+import com.skilldistillery.carwash.entities.Comment;
+
 import com.skilldistillery.carwash.entities.User;
 import com.skilldistillery.carwash.services.CommentService;
 import com.skilldistillery.carwash.services.StoreService;
@@ -42,22 +43,24 @@ public class CommentController {
 	private String username = "admin";
 
 	// find comment by store id
-	@GetMapping("store/comments/{tid}")
+	@GetMapping("comments/store/{tid}")
 	public Set<Comment> showCommentByStoreId(HttpServletRequest req, HttpServletResponse res,
 			@PathVariable("tid") int tid) {
-		Set<Comment> todos = commentService.findComment_ByStoreId(tid);
-		return todos;
+		//Set<Comment> todos = commentService.findComment_ByStoreId(tid);
+		Set<Comment> comments = commentService.findComment_ByStoreId(tid);
+
+		return comments;
 	}
 
 	// find comment by user id
-	@GetMapping("user/comments/{tid}")
+	@GetMapping("comments/user/{tid}")
 	public Set<Comment> showCommentByUserId(HttpServletRequest req, HttpServletResponse res,
 			@PathVariable("tid") int tid) {
-		Set<Comment> todos = commentService.findComment_ByUserId(tid);
-		return todos;
+		Set<Comment> comments = commentService.findComment_ByUserId(tid);
+		return comments;
 	}
 
-	@GetMapping("showComment")
+	@GetMapping("comments")
 	public List<Comment> listPosts(Principal principal, HttpServletResponse res) {
 		return commentService.findAll();
 	}
