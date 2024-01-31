@@ -48,4 +48,26 @@ export class VehicleService {
       })
     );
   }
+
+  updateVehicle(vehicle: Vehicle): Observable<Vehicle>{
+    return this.http.put<Vehicle>(this.url, vehicle, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('VehicleService.updateVehicle(): error updating vehicle: ' + err)
+        );
+      })
+    );
+  }
+
+  deleteVehicle(vehicleId: number): Observable<Vehicle>{
+    return this.http.delete<Vehicle>(this.url + '/' + vehicleId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('VehicleService.deleteVehicle(): error deleting vehicle: ' + err)
+        )
+      })
+    );
+  }
 }

@@ -22,11 +22,12 @@ import { Vehicle } from '../../models/vehicle';
 })
 export class ProfileComponent implements OnInit{
 
-  loggedUser: User | null = null;
+  loggedUser: User = new User();
   address: Address | null = null;
-  selected: User | null = null;
-  selectedVehicle : Vehicle | null = null;
+  selected: boolean = false;
+  newVehicle : Vehicle | null = null;
   vehicles : Vehicle[] = [];
+  selectedVehicle : Vehicle | null = null;
 
   constructor(
     private auth: AuthService,
@@ -41,8 +42,32 @@ export class ProfileComponent implements OnInit{
     this.vehicleList();
   }
 
+  displayVehicle(vehicle:Vehicle):void{
+    this.selectedVehicle = vehicle;
+  }
+
+  updateVehicle(vehicle:Vehicle):void{
+    this.vehicleService.updateVehicle(vehicle).subscribe({
+      next : (returnedVehicle) => {
+        this.selectedVehicle = null;
+      },
+      error : (err) => {
+        console.log('Error updating vehicle: ' + err);
+      }
+    });
+  }
+
+  deleteVehicle(vehicleId: number):void{
+    this.vehicleService.deleteVehicle(vehicleId).subscribe({
+      next : (returnedVehicle) => {
+        this.selectedVehicle = null;
+        this.vehicleList();
+      }
+    });
+  }
+
   setAddVehicle():void{
-    this.selectedVehicle = new Vehicle();
+    this.newVehicle = new Vehicle();
   }
   vehicleList():void{
     this.vehicleService.index().subscribe({
@@ -61,7 +86,7 @@ export class ProfileComponent implements OnInit{
       next: (addedVehicle) => {
         console.log('Vehicle added');
         this.vehicleList();
-        this.selectedVehicle = null;
+        this.newVehicle = null;
       },
       error : (err) => {
         console.log('Error adding vehicle: ' + err);
@@ -70,15 +95,16 @@ export class ProfileComponent implements OnInit{
   }
 
   editUser():void{
-    this.selected = new User();
+    this.selected = true;
   }
 
   updateUser(user: User):void{
+    console.log(this.loggedUser);
     this.userServ.updateUser(user).subscribe({
       next: (updatedUser) => {
         console.log('Updated user');
         this.loggedUser = updatedUser;
-        this.selected = null;
+        this.selected = false;
       },
       error: (err) => {
         console.log('Error updating user' + err);

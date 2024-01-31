@@ -26,7 +26,7 @@ public class StoreServiceImpl implements StoreService {
 	
 	@Override
 	public Store findStore_ByStoreId(int id) {
-		return null;
+		return storeRepo.findById(id);
 	}
 
 	@Override
