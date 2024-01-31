@@ -43,7 +43,8 @@
     <input type="text" placeholder="Enter License Plate" name="licensePlate" [(ngModel)]="selectedVehicle.licensePlate"/> <br> <br>
 
     <button (click)="updateVehicle(selectedVehicle)" type="submit" class="btn btn-success">Update</button>
-    <button (click)="selectedVehicle=null" type="submit" class="btn btn-danger">Cancel</button>
+    <button (click)="deleteVehicle(selectedVehicle.id)" type="submit" class="btn btn-danger">Delete</button>
+    <button (click)="selectedVehicle=null" type="submit" class="btn btn-warning">Cancel</button>
   </form>
 </div>
 

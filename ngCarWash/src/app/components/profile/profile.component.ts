@@ -57,6 +57,15 @@ export class ProfileComponent implements OnInit{
     });
   }
 
+  deleteVehicle(vehicleId: number):void{
+    this.vehicleService.deleteVehicle(vehicleId).subscribe({
+      next : (returnedVehicle) => {
+        this.selectedVehicle = null;
+        this.vehicleList();
+      }
+    });
+  }
+
   setAddVehicle():void{
     this.newVehicle = new Vehicle();
   }

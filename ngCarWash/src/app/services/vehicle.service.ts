@@ -59,4 +59,15 @@ export class VehicleService {
       })
     );
   }
+
+  deleteVehicle(vehicleId: number): Observable<Vehicle>{
+    return this.http.delete<Vehicle>(this.url + '/' + vehicleId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('VehicleService.deleteVehicle(): error deleting vehicle: ' + err)
+        )
+      })
+    );
+  }
 }
