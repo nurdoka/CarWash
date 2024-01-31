@@ -29,22 +29,6 @@ public class VehicleController {
 
 	@Autowired
 	private VehicleService vehicleService;
-	
-//	@GetMapping("vehicles")
-//	public List<Vehicle> returningAllVehiclesController(HttpServletRequest req, HttpServletResponse res) {
-//		List<Vehicle> VehiclesInDatabase = null;
-//		try {
-//			VehiclesInDatabase = vehicleService.returnAllVehicles();
-//			if(VehiclesInDatabase.size() < 1) {
-//				res.setStatus(404);
-//			}
-//		} catch (Exception e) {
-//			res.setStatus(400);
-//			e.printStackTrace();
-//		}
-//		return VehiclesInDatabase;
-//	}
-	
 
 	// GET VEHICLES BY USER NAME
 	@GetMapping("vehicles")
@@ -70,7 +54,7 @@ public class VehicleController {
 	
 	
 	// UPDATE VEHICLE CONTROLLER, UPDATING SPECIFIC FIELDS BY VEHICLE ID
-		@PutMapping(path="vehicle")
+		@PutMapping(path="vehicles")
 		public ResponseEntity<Vehicle> updateVehicle(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Vehicle vehicleToBeUpdated){
 			// Step 1: Extract the username
 		    String username = principal.getName();
@@ -105,7 +89,7 @@ public class VehicleController {
 		
 		// DELETE VEHICLE CONTROLLER, UPDATING THE VEHICLE TO DEACTIVIATE BY ID
 		// THIS IS A PSUDO DELETE
-		@DeleteMapping(path="vehicle/{id}")
+		@DeleteMapping(path="vehicles/{id}")
 		public ResponseEntity<Vehicle> deleteVehicle(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable("id") int vehicleId){
 			// Step 1: Extract the username
 	        String username = principal.getName();

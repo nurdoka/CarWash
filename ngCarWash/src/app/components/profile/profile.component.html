@@ -1,9 +1,9 @@
-<div *ngIf="!selected">
+<div *ngIf="!selected && !newVehicle && !selectedVehicle">
   <p>Hello, {{loggedUser.firstName}} {{loggedUser.lastName}}</p>
   <button (click)="editUser()" class="btn btn-primary">Edit Profile</button><br><br>
+</div>
 
-
-<div *ngIf="!selectedVehicle">
+<div *ngIf="!newVehicle && !selected && !selectedVehicle">
   <button (click)="setAddVehicle()" class="btn btn-success">Add Vehicle</button>
   <table class="table table-bordered table-hover">
     <thead class="table-dark">
@@ -12,6 +12,8 @@
         <th>MAKE</th>
         <th>MODEL</th>
         <th>COLOR</th>
+        <th>LICENSE PLATE</th>
+        <th>UPDATE</th>
       </tr>
     </thead>
     <tbody >
@@ -20,10 +22,11 @@
         <td>{{vehicle.make}}</td>
         <td>{{vehicle.model}}</td>
         <td>{{vehicle.color}}</td>
+        <td>{{vehicle.licensePlate}}</td>
+        <td><button (click)="displayVehicle(vehicle)" type="button" class="btn btn-warning">Update</button></td>
       </tr>
     </tbody>
   </table>
-</div>
 </div>
 
 <div *ngIf="selectedVehicle">
@@ -39,8 +42,26 @@
     <label for="licensePlate"><b> License Plate </b></label>
     <input type="text" placeholder="Enter License Plate" name="licensePlate" [(ngModel)]="selectedVehicle.licensePlate"/> <br> <br>
 
-    <button (click)="addVehicle(selectedVehicle)" type="submit" class="btn btn-success">Add</button>
+    <button (click)="updateVehicle(selectedVehicle)" type="submit" class="btn btn-success">Update</button>
     <button (click)="selectedVehicle=null" type="submit" class="btn btn-danger">Cancel</button>
+  </form>
+</div>
+
+<div *ngIf="newVehicle">
+  <form>
+    <label for="year"><b> Year </b></label>
+    <input type="text" placeholder="Enter Year" name="year" [(ngModel)]="newVehicle.year"/> <br> <br>
+    <label for="make"><b> Make </b></label>
+    <input type="text" placeholder="Enter Make" name="make" [(ngModel)]="newVehicle.make"/> <br> <br>
+    <label for="model"><b> Model </b></label>
+    <input type="text" placeholder="Enter Model" name="model" [(ngModel)]="newVehicle.model"/> <br> <br>
+    <label for="color"><b> Color </b></label>
+    <input type="text" placeholder="Enter Color" name="color" [(ngModel)]="newVehicle.color"/> <br> <br>
+    <label for="licensePlate"><b> License Plate </b></label>
+    <input type="text" placeholder="Enter License Plate" name="licensePlate" [(ngModel)]="newVehicle.licensePlate"/> <br> <br>
+
+    <button (click)="addVehicle(newVehicle)" type="submit" class="btn btn-success">Add</button>
+    <button (click)="newVehicle=null" type="submit" class="btn btn-danger">Cancel</button>
 
   </form>
 </div>
@@ -66,7 +87,7 @@
     <input type="text" placeholder="Enter zip" name="zip" id="zip" [(ngModel)]="loggedUser.address.zip" required><br><br>
 
     <button (click)="updateUser(loggedUser)" type="submit" class="btn btn-success">Save changes</button>
-    <button (click)="selected=null" type="submit" class="btn btn-danger">Cancel</button>
+    <button (click)="selected=false" type="submit" class="btn btn-danger">Cancel</button>
 
   </form>
 </div>

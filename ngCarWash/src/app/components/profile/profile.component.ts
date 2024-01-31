@@ -24,9 +24,10 @@ export class ProfileComponent implements OnInit{
 
   loggedUser: User = new User();
   address: Address | null = null;
-  selected: User | null = null;
-  selectedVehicle : Vehicle | null = null;
+  selected: boolean = false;
+  newVehicle : Vehicle | null = null;
   vehicles : Vehicle[] = [];
+  selectedVehicle : Vehicle | null = null;
 
   constructor(
     private auth: AuthService,
@@ -41,8 +42,23 @@ export class ProfileComponent implements OnInit{
     this.vehicleList();
   }
 
+  displayVehicle(vehicle:Vehicle):void{
+    this.selectedVehicle = vehicle;
+  }
+
+  updateVehicle(vehicle:Vehicle):void{
+    this.vehicleService.updateVehicle(vehicle).subscribe({
+      next : (returnedVehicle) => {
+        this.selectedVehicle = null;
+      },
+      error : (err) => {
+        console.log('Error updating vehicle: ' + err);
+      }
+    });
+  }
+
   setAddVehicle():void{
-    this.selectedVehicle = new Vehicle();
+    this.newVehicle = new Vehicle();
   }
   vehicleList():void{
     this.vehicleService.index().subscribe({
@@ -61,7 +77,7 @@ export class ProfileComponent implements OnInit{
       next: (addedVehicle) => {
         console.log('Vehicle added');
         this.vehicleList();
-        this.selectedVehicle = null;
+        this.newVehicle = null;
       },
       error : (err) => {
         console.log('Error adding vehicle: ' + err);
@@ -70,7 +86,7 @@ export class ProfileComponent implements OnInit{
   }
 
   editUser():void{
-    this.selected = new User();
+    this.selected = true;
   }
 
   updateUser(user: User):void{
@@ -79,7 +95,7 @@ export class ProfileComponent implements OnInit{
       next: (updatedUser) => {
         console.log('Updated user');
         this.loggedUser = updatedUser;
-        this.selected = null;
+        this.selected = false;
       },
       error: (err) => {
         console.log('Error updating user' + err);
