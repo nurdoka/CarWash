@@ -31,7 +31,6 @@ public class Comment {
 	@JoinColumn(name = "store_id")
 	private Store store;
 
-	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "user_id")
 	private User user;

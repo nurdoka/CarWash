@@ -1,8 +1,76 @@
-<p>comment-list works!</p>
-<p>Name: {{selected.name}}</p>
-<p>ID: {{selected.id}}</p>
-<p>email: {{selected.email}}</p>
 
-<ul *ngFor="let comment of comments">
-    <li>{{comment.id}}</li>
-</ul>
+  
+  <!-- Display reviews if there are any -->
+<div *ngIf="!selected && !newComment && !selectedComment" style="max-height: 300px; overflow-y: auto;">
+
+
+  <div *ngFor="let comment of comments">
+    <div *ngIf="comment.user.id === loggedUser.id">
+      <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>Content</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ comment.content }}</td>
+            <td>{{ comment.commentDate }}</td>
+            <td>
+              <button (click)="displayComment(comment)" type="button" class="btn btn-warning">Update Comment</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+  
+  <!-- Display reviews if there are any -->
+<div *ngIf="!newComment && !selected && !selectedComment" style="max-height: 300px; overflow-y: auto;">
+
+      <button (click)="setAddComment()" class="btn btn-success">Add Comment</button>
+      <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>User Name</th>
+            <th>Review</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let comment of comments">
+            <td>{{ comment.user.username }}</td>
+            <td>{{ comment.content }}</td>
+            <td>{{ comment.commentDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+  </div>
+  
+  <div *ngIf="selectedComment">
+    <form>
+      <label for="content"><b>Update Review:</b></label><br>
+      <textarea placeholder="Enter Content" name="content" [(ngModel)]="selectedComment.content" style="width: 300px; height: 100px;"></textarea>
+      <br> <br>
+      <button (click)="updateComment(selectedComment)" type="submit" class="btn btn-success">Update</button>
+      <button (click)="deleteComment(selectedComment.id)" type="submit" class="btn btn-danger">Delete</button>
+      <button (click)="selectedComment=null" type="submit" class="btn btn-warning">Cancel</button>
+    </form>
+  </div>
+  
+  <div *ngIf="newComment">
+    <form>
+      <label for="content"><b>Write A Review:</b></label><br>
+      <textarea placeholder="Enter Content" name="content" [(ngModel)]="newComment.content" style="width: 300px; height: 100px;"></textarea>
+      <br> <br>
+      <button (click)="addComment(newComment)" type="submit" class="btn btn-success">Add</button>
+      <button (click)="newComment=null" type="submit" class="btn btn-danger">Cancel</button>
+    </form>
+  </div>
+  
+  
