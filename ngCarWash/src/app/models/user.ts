@@ -33,3 +33,16 @@ export class User {
     this.address = address;
   }
 }
+
+
+export interface User {
+  id : number ;
+  firstName: string;
+  lastName : string;
+  email : string;
+  username : string;
+  password : string;
+  enabled : boolean;
+  role : string;
+  address : Address
+}

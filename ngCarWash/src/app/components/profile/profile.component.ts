@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit{
   setAddVehicle():void{
     this.newVehicle = new Vehicle();
   }
-  
+
   vehicleList():void{
     this.vehicleService.index().subscribe({
       next: (vehicles) => {
