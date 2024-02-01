@@ -1,11 +1,3 @@
-<p>Name: {{selected.name}}</p>
-<p>ID: {{selected.id}}</p>
-<p>email: {{selected.email}}</p>
-<a [routerLink]="['/storeRating', storeID]">Store Rating</a>
-<ul>
-    <li *ngFor="let comment of comments">{{comment.id}}</li>
-</ul>
-
 
 
   <!-- Display reviews if there are any -->
@@ -80,3 +72,5 @@
       <button (click)="newComment=null" type="submit" class="btn btn-danger">Cancel</button>
     </form>
   </div>
+
+

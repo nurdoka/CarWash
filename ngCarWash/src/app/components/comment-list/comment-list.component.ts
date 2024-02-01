@@ -24,21 +24,20 @@ import { AuthService } from '../../services/auth.service';
 
 })
 export class CommentListComponent implements OnInit{
-  constructor(
-    private activatedRoute: ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
     private storeService: StoreService,
     private commentService: CommentService,
-    private auth: AuthService
-  ) {}
+    private auth: AuthService) {}
 
-
+  loggedUser: User = new User();
   comments: Comment[] = [];
   newComment : Comment | null = null;
   selectedComment : Comment | null = null;
   storeID: number = 0;
-  selected: Store = new Store();
-  loggedUser: User = new User();
+  store: Store = new Store();
+  selected: boolean = false;
+
 
   ngOnInit(): void {
 
@@ -46,8 +45,6 @@ export class CommentListComponent implements OnInit{
       {
         next: (params: ParamMap) => {
           let storeIdStr = params.get('storeId');
-          console.log("void 1" + storeIdStr);
-
           if(storeIdStr){
             let storeId = parseInt(storeIdStr);
 
@@ -59,7 +56,7 @@ export class CommentListComponent implements OnInit{
               this.storeService.show(storeId).subscribe(
                 {
                   next: (store) => {
-                    this.selected = store;
+                    this.store = store;
                   },
                   error: (nojoy) => {
                     this.router.navigateByUrl("invalidStoreId 2");
@@ -70,17 +67,15 @@ export class CommentListComponent implements OnInit{
         }
       }
     );
+    this.getUser();
     this.reload();
   }
 
   reload(): void {
-
     this.commentService.getCommentsByStoreId(this.storeID).subscribe({
     next: (comments) => {
       console.log("--reload--");
       this.comments = comments;
-      console.log(comments);
-      console.log(this.storeID);
     },
     error: (problem) => {
       console.error('storeService.index(): error loading stores:');
