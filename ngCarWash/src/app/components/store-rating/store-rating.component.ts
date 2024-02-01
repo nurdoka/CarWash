@@ -109,4 +109,5 @@ export class StoreRatingComponent implements OnInit{
       }
     });
   }
+
 }

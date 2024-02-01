@@ -5,8 +5,8 @@
     <div class="col-md-12 text-center mt-5"></div>
     <div class="col-md-12 text-center mt-5"></div>
     <div class="col-md-12 text-center">
-      <button *ngIf="!checkLogin()" class="button-size btn btn-primary bt-lg">Sign In</button>
-      <button *ngIf="!checkLogin()" class="button-size btn btn-primary bt-lg">Sign Up</button>
+      <button *ngIf="!checkLogin()" class="button-size btn btn-primary bt-lg" [routerLink]="['/login']">Sign In</button>
+      <button *ngIf="!checkLogin()" class="button-size btn btn-primary bt-lg" [routerLink]="['/register']">Sign Up</button>
     </div>
   </div>
 </div>

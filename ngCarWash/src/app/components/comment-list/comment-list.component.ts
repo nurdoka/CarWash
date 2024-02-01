@@ -10,6 +10,8 @@ import { Comment } from '../../models/comment';
 import { Store } from '../../models/store';
 import { User } from './../../models/user';
 import { AuthService } from '../../services/auth.service';
+import { StoreRating } from '../../models/store-rating';
+import { StoreRatingService } from '../../services/store-rating.service';
 
 @Component({
   selector: 'app-comment-list',
@@ -24,11 +26,14 @@ import { AuthService } from '../../services/auth.service';
 
 })
 export class CommentListComponent implements OnInit{
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private storeService: StoreService,
     private commentService: CommentService,
-    private auth: AuthService) {}
+    private auth: AuthService,
+    private storeRatingService: StoreRatingService
+    ) {}
 
   loggedUser: User = new User();
   comments: Comment[] = [];
@@ -37,7 +42,8 @@ export class CommentListComponent implements OnInit{
   storeID: number = 0;
   store: Store = new Store();
   selected: boolean = false;
-
+  storeRatings: StoreRating[] = [];
+  storeRatingAverage: number = 0;
 
   ngOnInit(): void {
 
@@ -69,6 +75,34 @@ export class CommentListComponent implements OnInit{
     );
     this.getUser();
     this.reload();
+    this.getStoreRatings();
+    // this.storeRating();
+  }
+
+  storeRating():number{
+    let num = 0;
+    console.log('OK: ' + this.storeRatings.length);
+
+    for(let i = 0; i < this.storeRatings.length; i++){
+      num+= this.storeRatings[i].rating;
+      // console.log('OK' + this.storeRatings[i].rating);
+    }
+    // console.log('total rating: ' + num);
+    return this.storeRatingAverage = num/this.storeRatings.length;
+  }
+
+  getStoreRatings(): void{
+    this.storeRatingService.getAllRatings(this.storeID).subscribe({
+      next: (ratings) => {
+        this.storeRatings = ratings;
+        console.log('ratings: ');
+        console.log(this.storeRatings.length);
+      },
+      error: (problem) => {
+        console.error('storeService.index(): error loading stores:');
+        console.error(problem);
+      }
+    });
   }
 
   reload(): void {
