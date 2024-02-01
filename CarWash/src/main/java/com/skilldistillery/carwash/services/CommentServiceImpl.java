@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.carwash.entities.Comment;
 import com.skilldistillery.carwash.entities.User;
 import com.skilldistillery.carwash.repositories.CommentRepository;
+import com.skilldistillery.carwash.repositories.StoreRepository;
 import com.skilldistillery.carwash.repositories.UserRepository;
 
 @Service
@@ -19,6 +20,9 @@ public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private StoreRepository storeRepo;
 
 	@Override
 	public List<Comment> findComment_ByStoreId(int storeId) {
@@ -36,10 +40,11 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Comment create(String username, Comment comment) {
+	public Comment create(String username, Comment comment, int id) {
 		User user = userRepo.findByUsername(username);
 		if (user != null) {
 			comment.setUser(user);
+			comment.setStore(storeRepo.findById(id));
 			return commentRepo.saveAndFlush(comment);
 		}
 		return null;

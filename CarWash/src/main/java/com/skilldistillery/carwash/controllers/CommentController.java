@@ -34,14 +34,13 @@ public class CommentController {
 	@Autowired
 	private UserService userService;
 
-	private String username = "admin";
-
 	// find comment by store id
 	@GetMapping("comments/store/{tid}")
 	public List<Comment> showCommentByStoreId(HttpServletRequest req, HttpServletResponse res,
 			@PathVariable("tid") int tid) {
 		//Set<Comment> todos = commentService.findComment_ByStoreId(tid);
 		List<Comment> comments = commentService.findComment_ByStoreId(tid);
+
 		return comments;
 	}
 
@@ -63,10 +62,11 @@ public class CommentController {
 		return userService.findAll();
 	}
 
-	@PostMapping("comments")
-	public Comment create(HttpServletRequest req, HttpServletResponse res, @RequestBody Comment comment) {
+	@PostMapping("comments/{tid}")
+	public Comment create(HttpServletRequest req, HttpServletResponse res, @PathVariable("tid") int storeID,
+			@RequestBody Comment comment, Principal principal) {
 		try {
-			comment = commentService.create(username, comment);
+			comment = commentService.create(principal.getName(), comment, storeID);
 			if (comment == null) {
 				res.setStatus(401);
 			} else {
@@ -83,10 +83,10 @@ public class CommentController {
 
 	@PutMapping("comments/{tid}")
 	public Comment update(HttpServletRequest req, HttpServletResponse res, @PathVariable("tid") int tid,
-			@RequestBody Comment comment) {
+			@RequestBody Comment comment, Principal principal) {
 		Comment updated = null;
 		try {
-			updated = commentService.update(username, tid, comment);
+			updated = commentService.update(principal.getName(), tid, comment);
 			if (updated == null) {
 				res.setStatus(404);
 			}
@@ -98,9 +98,10 @@ public class CommentController {
 	}
 
 	@DeleteMapping("comments/{tid}")
-	public void destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("tid") int tid) {
+	public void destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("tid") int tid,
+			Principal principal) {
 		try {
-			if (commentService.destroy(username, tid)) {
+			if (commentService.destroy(principal.getName(), tid)) {
 				res.setStatus(204);
 			} else {
 				res.setStatus(404);

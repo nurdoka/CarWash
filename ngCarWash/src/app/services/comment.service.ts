@@ -39,18 +39,38 @@ export class CommentService {
     );
   }
 
-
-
-
-  /*getCommentsByStoreId(storeId: number): Observable<Comment[]> {
-    const apiUrl = `${this.url}?storeId=${storeId}`;
-    return this.http.get<Comment[]>(apiUrl, this.getHttpOptions()).pipe(
+  addComment(comment: Comment, id: number): Observable<Comment> {
+    return this.http.post<Comment>(this.url+'/'+id, comment, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('CommentService.getCommentsByStoreId(): error retrieving comments: ' + err)
+          () => new Error('CommentService.addComment(): error adding comment: ' + err)
         );
       })
     );
-  }*/
+  }
+
+  updateComment(comment: Comment, id: number): Observable<Comment>{
+    return this.http.put<Comment>(this.url+'/'+id, comment, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('CommentService.updateComment(): error updating comment: ' + err)
+        );
+      })
+    );
+  }
+
+  deleteComment(commentId: number): Observable<Comment>{
+    console.log('CommentService.deleteComment(): ' + commentId);
+    return this.http.delete<Comment>(this.url + '/' + commentId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('CommentService.deleteComment(): error deleting comment: ' + err)
+        )
+      })
+    );
+  }
+  
 }

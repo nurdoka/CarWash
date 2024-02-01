@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
+
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 import { StoreService } from '../../services/store.service';
 import { CommentService } from '../../services/comment.service';
 import { Comment } from '../../models/comment';
 import { Store } from '../../models/store';
-import { CommonModule } from '@angular/common';
-import { StoreRatingService } from '../../services/store-rating.service';
-import { StoreRating } from '../../models/store-rating';
-import { FormsModule } from '@angular/forms';
+import { User } from './../../models/user';
 import { AuthService } from '../../services/auth.service';
-
 
 @Component({
   selector: 'app-comment-list',
@@ -29,14 +29,16 @@ export class CommentListComponent implements OnInit{
     private router: Router,
     private storeService: StoreService,
     private commentService: CommentService,
-    private storeRatingService: StoreRatingService,
     private auth: AuthService
   ) {}
 
 
   comments: Comment[] = [];
+  newComment : Comment | null = null;
+  selectedComment : Comment | null = null;
   storeID: number = 0;
   selected: Store = new Store();
+  loggedUser: User = new User();
 
   ngOnInit(): void {
 
@@ -48,12 +50,11 @@ export class CommentListComponent implements OnInit{
 
           if(storeIdStr){
             let storeId = parseInt(storeIdStr);
-            console.log();
 
             this.storeID = storeId;
 
             if( isNaN(storeId)){
-              this.router.navigateByUrl("invalidStoreId1");
+              this.router.navigateByUrl("invalidStoreId 1");
             }else{
               this.storeService.show(storeId).subscribe(
                 {
@@ -61,7 +62,7 @@ export class CommentListComponent implements OnInit{
                     this.selected = store;
                   },
                   error: (nojoy) => {
-                    this.router.navigateByUrl("invalidStoreId2");
+                    this.router.navigateByUrl("invalidStoreId 2");
                   }
                 });
             }
@@ -76,6 +77,7 @@ export class CommentListComponent implements OnInit{
 
     this.commentService.getCommentsByStoreId(this.storeID).subscribe({
     next: (comments) => {
+      console.log("--reload--");
       this.comments = comments;
       console.log(comments);
       console.log(this.storeID);
@@ -85,9 +87,85 @@ export class CommentListComponent implements OnInit{
       console.error(problem);
     }
   });
+  }
+
+
+  setAddComment():void{
+    this.newComment = new Comment();
 
   }
 
 
+  commentList():void{
+    this.commentService.getCommentsByStoreId(this.storeID).subscribe({
+      next: (comments) => {
+        this.comments = comments;
+        console.log('Retrieved comment list');
+      },
+      error : (err) => {
+        console.log('Error retrieving commentList(): ' + err);
+      }
+    });
+  }
+
+  getUser():void{
+    this.auth.getLoggedInUser().subscribe({
+      next: (user) => {
+        console.log("--get user--");
+        console.log("user: " + user.username);
+        this.loggedUser = user;
+
+        console.log("loggedUser: " + this.loggedUser.username);
+      },
+      error: (problem) => {
+        console.log('Error getting user: ' + problem);
+      }
+    });
+  }
+
+
+  displayComment(comment:Comment):void{
+    this.selectedComment = comment;
+  }
+
+
+  addComment(comment: Comment):void{
+    console.log(comment);
+    this.commentService.addComment(comment, this.storeID).subscribe({
+      next: (addedComment) => {
+        console.log('Comment added');
+        this.commentList();
+        this.newComment = null;
+      },
+      error : (err) => {
+        console.log('Error adding comment: ' + err);
+      }
+    });
+  }
+
+
+  updateComment(comment:Comment):void{
+    this.commentService.updateComment(comment, comment.id).subscribe({
+      next : (returnedComment) => {
+        console.log('updating comment#: '+ comment.id);
+        this.selectedComment = null;
+      },
+      error : (err) => {
+        console.log('Error updating comment: ' + err);
+      }
+    });
+  }
+
+  deleteComment(commentId: number):void{
+    console.log('delete: ' + commentId);
+    this.commentService.deleteComment(commentId).subscribe({
+      next : (returnedComment) => {
+        console.log('deleting comment#: '+ commentId);
+        this.selectedComment = null;
+        console.log('error');
+        this.commentList();
+      }
+    });
+  }
 
 }

@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -54,6 +55,7 @@ public class Vehicle {
 	
 	private String color;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "vehicle")
 	private List<Wash> washes;
 	
