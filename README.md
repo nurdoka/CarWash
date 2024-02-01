@@ -29,11 +29,11 @@ This full-stack application was a collaborative effort between Diego De La Puent
 
 ## Contributors
 
-- **Diego De La Puente:** Scrum Master and contributor to the project. Played a key role in implementing server-side logic, ensuring proper authentication for API RESTful services.
+- **Diego De La Puente:** Repo Owner and contributor.
 
-- **Nurdoolot Aitaliev:** Database Administrator (DBA) responsible for the design and maintenance of the MySQL database.
+- **Nurdoolot Aitaliev:** Database Administrator (DBA) and contributor.
 
-- **David Taylor:** Repo Owner and contributor, actively involved in developing the Spring Service layer and HTTP request routing controller.
+- **David Taylor:** Scrum Master and contributor.
 
 ## Lessons Learned
 
