@@ -14,7 +14,7 @@
         <td >{{store.name}}</td>
         <td> {{store.phone}}</td>
         <td>{{store.email}}</td>
-        <td>{{store.imageUrl}}</td>
+        <td><img src={{store.imageUrl}} width="250px" height="200px"/></td>
 
         <!-- td><a [routerLink]="['/comment/{{store.id}}']">{{store.id}}</a></td -->
         <td><a [routerLink]="['/comment', store.id]">Reviews</a></td>

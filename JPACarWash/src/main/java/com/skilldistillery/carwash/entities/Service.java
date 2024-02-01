@@ -37,6 +37,7 @@ public class Service {
 	@JoinColumn(name="store_id")
 	private Store store; 
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "service")
 	private List<Wash> washes;
 	
