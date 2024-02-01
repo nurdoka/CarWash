@@ -1,0 +1,13 @@
+.body {
+  background-image: url('https://www.shutterstock.com/shutterstock/photos/2109800042/display_1500/stock-vector-pressure-car-wash-logo-design-2109800042.jpg'); /* Adjust the path based on your folder structure */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Set the height to cover the entire viewport */
+  margin: 0; /* Remove default body margin */
+}
+
+.button-size{
+  height:50px;
+  width:250px;
+}
