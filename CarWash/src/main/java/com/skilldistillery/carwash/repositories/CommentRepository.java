@@ -1,5 +1,6 @@
 package com.skilldistillery.carwash.repositories;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +12,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	Comment findByUser_UsernameAndId(String username, int commentId);
 	
 	//Set<Comment> findComment_ByUserIdAndStoreId(String username, int todoId);
-	Set<Comment> findComment_ByStoreId(int storeId);
+	List<Comment> findByStoreId(int storeId);
 	Set<Comment> findComment_ByUserId(int userId);
 	
 }

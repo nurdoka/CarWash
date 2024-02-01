@@ -21,8 +21,8 @@ public class CommentServiceImpl implements CommentService {
 	private UserRepository userRepo;
 
 	@Override
-	public Set<Comment> findComment_ByStoreId(int storeId) {
-		return commentRepo.findComment_ByStoreId(storeId);
+	public List<Comment> findComment_ByStoreId(int storeId) {
+		return commentRepo.findByStoreId(storeId);
 	}
 
 	@Override

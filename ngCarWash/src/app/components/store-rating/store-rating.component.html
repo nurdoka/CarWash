@@ -1,0 +1,37 @@
+<p>store-rating works!</p>
+
+<div class="container">
+  <h1>Ratings</h1>
+  <ul>
+    <li *ngFor="let storeRat of storeRatings">{{storeRat.rating}} : {{storeRat.ratingComment}}</li>
+  </ul>
+</div>
+
+<div class="container mt-5">
+      <h3>Rate This Store</h3>
+      <form id="ratingForm">
+        <div class="form-group">
+          <label for="rating">Rating:</label>
+          <div class="rating">
+            <input type="radio" id="star5" name="rating" [(ngModel)]="storeRating.rating" value=5 />
+            <label class="star" for="star5"></label>
+            <input type="radio" id="star4" name="rating" [(ngModel)]="storeRating.rating" value=4 />
+            <label class="star" for="star4"></label>
+            <input type="radio" id="star3" name="rating" [(ngModel)]="storeRating.rating" value=3 />
+            <label class="star" for="star3"></label>
+            <input type="radio" id="star2" name="rating" [(ngModel)]="storeRating.rating" value=2 />
+            <label class="star" for="star2"></label>
+            <input type="radio" id="star1" name="rating" [(ngModel)]="storeRating.rating" value=1 />
+            <label class="star" for="star1"></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="comment">Comment:</label>
+          <textarea class="form-control" id="comment" name="comment" rows="3" [(ngModel)]="storeRating.ratingComment"></textarea>
+        </div>
+
+        <button (click)="addStoreRating()" type="submit" class="btn btn-primary">Submit Rating</button>
+      </form>
+
+</div><br><br>

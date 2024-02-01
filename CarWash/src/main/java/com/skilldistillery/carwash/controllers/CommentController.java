@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.carwash.entities.Comment;
-import com.skilldistillery.carwash.entities.Comment;
-
 import com.skilldistillery.carwash.entities.User;
 import com.skilldistillery.carwash.services.CommentService;
-import com.skilldistillery.carwash.services.StoreService;
 import com.skilldistillery.carwash.services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,20 +32,16 @@ public class CommentController {
 	private CommentService commentService;
 
 	@Autowired
-	private StoreService storeService;
-
-	@Autowired
 	private UserService userService;
 
 	private String username = "admin";
 
 	// find comment by store id
 	@GetMapping("comments/store/{tid}")
-	public Set<Comment> showCommentByStoreId(HttpServletRequest req, HttpServletResponse res,
+	public List<Comment> showCommentByStoreId(HttpServletRequest req, HttpServletResponse res,
 			@PathVariable("tid") int tid) {
 		//Set<Comment> todos = commentService.findComment_ByStoreId(tid);
-		Set<Comment> comments = commentService.findComment_ByStoreId(tid);
-
+		List<Comment> comments = commentService.findComment_ByStoreId(tid);
 		return comments;
 	}
 

@@ -15,12 +15,7 @@ import { ContactComponent } from './components/contact/contact.component';
   imports: [
     CommonModule,
     RouterOutlet,
-    LoginComponent,
-    ProfileComponent,
-    HomeComponent,
-    NavigationComponent,
-    AboutComponent,
-    ContactComponent
+    NavigationComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

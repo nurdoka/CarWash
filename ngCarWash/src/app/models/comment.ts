@@ -1,23 +1,25 @@
+import { Store } from "./store";
+import { User } from "./user";
+
 // comment.model.ts
 export class Comment {
     id: number;
     content: string;
-    storeId: number;
-    userId: number;
+    store: Store;
+    user: User;
     commentDate: Date | null;  // Allow Date or null
-  
+
     constructor(
       id: number = 0,
       content: string = '',
-      storeId: number = 0,
-      userId: number = 0,
+      store: Store = new Store(),
+      user: User = new User(),
       commentDate: Date | null = null
     ) {
       this.id = id;
       this.content = content;
-      this.storeId = storeId;
-      this.userId = userId;
+      this.store = store;
+      this.user = user;
       this.commentDate = commentDate || null;  // Ensure a non-nullable default value
     }
   }
-  

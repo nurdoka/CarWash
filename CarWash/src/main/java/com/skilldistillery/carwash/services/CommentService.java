@@ -6,7 +6,7 @@ import java.util.Set;
 import com.skilldistillery.carwash.entities.Comment;
 
 public interface CommentService {
-	public Set<Comment> findComment_ByStoreId(int storeId);
+	public List<Comment> findComment_ByStoreId(int storeId);
 	public Set<Comment> findComment_ByUserId(int userId);
 
     public Comment create(String username, Comment comment);
