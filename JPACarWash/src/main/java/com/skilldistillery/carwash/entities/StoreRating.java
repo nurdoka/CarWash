@@ -6,7 +6,7 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -25,14 +25,13 @@ public class StoreRating {
 		private StoreRatingId id;
 		
 		// BEGIN COMPOSITE KEYS
-		@JsonIgnore
-		@ManyToOne
+		@ManyToOne(cascade = CascadeType.ALL)
 		@JoinColumn(name = "user_id") 
 		@MapsId(value = "userId")     
 		private User user;
 		
 		@JsonIgnore
-		@ManyToOne
+		@ManyToOne(cascade = CascadeType.ALL)
 		@JoinColumn(name = "store_id") 
 		@MapsId(value = "storeId")    
 		private Store store;

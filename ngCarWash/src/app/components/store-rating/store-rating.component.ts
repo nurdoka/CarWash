@@ -8,13 +8,15 @@ import { AuthService } from '../../services/auth.service';
 import { Store } from '../../models/store';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-store-rating',
   standalone: true,
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
+    NgbModule
   ],
   templateUrl: './store-rating.component.html',
   styleUrl: './store-rating.component.css'
@@ -95,7 +97,7 @@ export class StoreRatingComponent implements OnInit{
   }
 
   addStoreRating():void{
-    this.storeRating.store = this.selected;
+    this.storeRating.id.storeId = this.selected.id;
 
     console.log(this.storeRating);
     this.storeRatingService.addRating(this.storeRating).subscribe({

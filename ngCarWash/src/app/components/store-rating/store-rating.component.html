@@ -2,7 +2,12 @@
 <div class="container">
   <h1>Ratings</h1>
   <ul>
-    <li *ngFor="let storeRat of storeRatings">Rating: {{storeRat.rating}}, Comment: {{storeRat.ratingComment}}</li>
+    <li *ngFor="let storeRat of storeRatings">
+      <span><b>{{storeRat.user.firstName}} {{storeRat.user.lastName}}</b> {{storeRat.createDate | date:'yyy-MMM-dd'}}</span><br>
+      <span>Rating: <ngb-rating class="gold-color" [readonly]="true" [(rate)]="storeRat.rating" [max]="5"/></span><br>
+      {{storeRat.ratingComment}}
+
+    </li>
   </ul>
 </div>
 
@@ -11,18 +16,9 @@
       <form id="ratingForm">
         <div class="form-group">
           <label for="rating">Rating:</label>
-          <div class="rating">
-            <input type="radio" id="star5" name="rating" [(ngModel)]="storeRating.rating" value=5 />
-            <label class="star" for="star5">5</label>
-            <input type="radio" id="star4" name="rating" [(ngModel)]="storeRating.rating" value=4 />
-            <label class="star" for="star4">4</label>
-            <input type="radio" id="star3" name="rating" [(ngModel)]="storeRating.rating" value=3 />
-            <label class="star" for="star3">3</label>
-            <input type="radio" id="star2" name="rating" [(ngModel)]="storeRating.rating" value=2 />
-            <label class="star" for="star2">2</label>
-            <input type="radio" id="star1" name="rating" [(ngModel)]="storeRating.rating" value=1 />
-            <label class="star" for="star1">1</label>
-          </div>
+
+          <ngb-rating class="sizing-2rem gold-color" [(rate)]="storeRating.rating" [max]="5" />
+
         </div>
 
         <div class="form-group">
