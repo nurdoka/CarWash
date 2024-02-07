@@ -1,25 +1,58 @@
-<div>
-  <table class="table table-bordered table-hover">
-    <thead class="table-dark">
-      <tr>
-        <th>Store Name</th>
-        <th>Phone </th>
-        <th>Email</th>
-        <th>Image URLs</th>
-        <th>Comments</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr  *ngFor="let store of stores">
-        <td >{{store.name}}</td>
-        <td> {{store.phone}}</td>
-        <td>{{store.email}}</td>
-        <td><img src={{store.imageUrl}} width="250px" height="200px"/></td>
+<section style="background-color: white;">
+  <div class="container py-5">
+    <div class="row justify-content-center mb-3">
+      <div *ngFor="let store of stores" class="col-md-12 col-xl-10">
+        <div class="card shadow-0 border rounded-3 text-bg-light">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                  <img src={{store.imageUrl}} width="200" height="170" class="w-100" />
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <h5>{{store.name}}</h5>
+                <div class="d-flex flex-row">
+                  <div class="text-primary mb-1 me-2">
+                    <pre>Rate: <b>{{ getStoreRating(store.storeRatings) | number : '1.2-2'}}</b></pre>
+                    <hr />
+                    <ng-template #t let-fill="fill">
+                      <i class="bi-star-fill">
+                        @if (fill > 0) {
+                          <i class="bi-star-fill filled" [style.width.%]="fill"></i>
+                        }
+                      </i>
+                    </ng-template>
 
-        <!-- td><a [routerLink]="['/comment/{{store.id}}']">{{store.id}}</a></td -->
-        <td><a [routerLink]="['/comment', store.id]">Reviews</a></td>
-
-      </tr>
-    </tbody>
-  </table>
-</div>
+                    <ngb-rating [(rate)]="rating" [starTemplate]="t" [readonly]="true" [max]="5" />
+                  </div>
+                  <h3> ({{store.storeRatings.length}}) </h3>
+                </div>
+                <div class="mt-1 mb-0 text-muted small">
+                  <span>{{store.address.street}}</span>
+                  <span class="text-primary"> , </span>
+                  <span>{{store.address.city}}</span>
+                  <span class="text-primary"> , </span>
+                  <span>{{store.address.state}}</span>
+                  <span class="text-primary"> , </span>
+                  <span>{{store.address.zip}}<br /></span>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                <div class="d-flex flex-row align-items-center mb-1">
+                  <h4 class="mb-1 me-1">$13.99</h4>
+                  <span class="text-danger"><s>$20.99</s></span>
+                </div>
+                <h6 class="text-success">Membership</h6>
+                <div class="d-flex flex-column mt-4">
+                  <button [routerLink]="['/comment', store.id]" class="btn btn-primary btn-sm" type="button">Details</button>
+                  <button [routerLink]="['/storeRating', store.id]" class="btn btn-outline-primary btn-sm mt-2" type="button"> Rate this store </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

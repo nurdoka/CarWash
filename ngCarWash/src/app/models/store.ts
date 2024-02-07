@@ -1,4 +1,5 @@
 import { Address } from "./address";
+import { StoreRating } from "./store-rating";
 
 export class Store {
   id : number;
@@ -11,6 +12,7 @@ export class Store {
   imageUrl : string;
   description : string;
   address : Address;
+  storeRatings : StoreRating[];
 
   constructor(
     id : number = 0,
@@ -22,7 +24,8 @@ export class Store {
     enabled : boolean = false,
     imageUrl : string = '',
     description : string = '',
-    address : Address = new Address()
+    address : Address = new Address(),
+    storeRatings : StoreRating[] = []
   ){
     this.id = id;
     this.phone = phone;
@@ -34,5 +37,6 @@ export class Store {
     this.imageUrl = imageUrl;
     this.description = description;
     this.address  = address;
+    this.storeRatings = storeRatings;
   }
 }

@@ -72,6 +72,11 @@ public class Store {
 	@JsonIgnore
 	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
 	private List<Wash> washes;
+	
+	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private List<StoreRating> storeRatings;
+	
+	
 
 	// CONSTRUCTORS
 
@@ -94,6 +99,14 @@ public class Store {
 	}
 
 	// GETTERS AND SETTERS
+
+	public List<StoreRating> getStoreRatings() {
+		return storeRatings;
+	}
+
+	public void setStoreRatings(List<StoreRating> storeRatings) {
+		this.storeRatings = storeRatings;
+	}
 
 	public List<Wash> getWashes() {
 		return washes;

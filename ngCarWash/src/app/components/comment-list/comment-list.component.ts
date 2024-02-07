@@ -42,7 +42,7 @@ export class CommentListComponent implements OnInit{
   storeID: number = 0;
   store: Store = new Store();
   selected: boolean = false;
-  storeRatings: StoreRating[] = [];
+
   storeRatingAverage: number = 0;
 
   ngOnInit(): void {
@@ -75,40 +75,11 @@ export class CommentListComponent implements OnInit{
     );
     this.getUser();
     this.reload();
-    this.getStoreRatings();
-    // this.storeRating();
-  }
-
-  storeRating():number{
-    let num = 0;
-    console.log('OK: ' + this.storeRatings.length);
-
-    for(let i = 0; i < this.storeRatings.length; i++){
-      num+= this.storeRatings[i].rating;
-      // console.log('OK' + this.storeRatings[i].rating);
-    }
-    // console.log('total rating: ' + num);
-    return this.storeRatingAverage = num/this.storeRatings.length;
-  }
-
-  getStoreRatings(): void{
-    this.storeRatingService.getAllRatings(this.storeID).subscribe({
-      next: (ratings) => {
-        this.storeRatings = ratings;
-        console.log('ratings: ');
-        console.log(this.storeRatings.length);
-      },
-      error: (problem) => {
-        console.error('storeService.index(): error loading stores:');
-        console.error(problem);
-      }
-    });
   }
 
   reload(): void {
     this.commentService.getCommentsByStoreId(this.storeID).subscribe({
     next: (comments) => {
-      console.log("--reload--");
       this.comments = comments;
     },
     error: (problem) => {

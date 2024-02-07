@@ -46,6 +46,7 @@ export class StoreRatingService {
     );
   }
 
+
   addRating(storeRating: StoreRating): Observable<StoreRating>{
     return this.http.post<StoreRating>(this.url, storeRating,this.getHttpOptions()).pipe(
       catchError((err:any) => {

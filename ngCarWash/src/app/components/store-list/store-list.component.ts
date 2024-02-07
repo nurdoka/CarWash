@@ -4,6 +4,10 @@ import { StoreService } from '../../services/store.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreRatingService } from '../../services/store-rating.service';
+import { StoreRating } from '../../models/store-rating';
+
 
 @Component({
   selector: 'app-store-list',
@@ -11,15 +15,21 @@ import { RouterLink } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    RouterLink
+    RouterLink,
+    NgbRatingModule
   ],
   templateUrl: './store-list.component.html',
   styleUrls: ['./store-list.component.css']  // Fix the property name here
 })
 export class StoreListComponent implements OnInit {
   stores: Store[] = [];
+  storeRatings: StoreRating[] = [];
+  rating: number = 0;
 
-  constructor(private storeService: StoreService) {}
+  constructor(
+    private storeService: StoreService,
+    private storeRatingService: StoreRatingService
+  ) {}
 
   ngOnInit(): void {
     this.reload();
@@ -35,5 +45,14 @@ export class StoreListComponent implements OnInit {
         console.error(problem);
       }
     });
+  }
+
+  getStoreRating(storeRating: StoreRating[]):number{
+    let num = 0;
+    for(let i = 0; i < storeRating.length; i++){
+      num+= storeRating[i].rating;
+    }
+    this.rating = num/storeRating.length;
+    return this.rating;
   }
 }
