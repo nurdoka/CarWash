@@ -1,9 +1,114 @@
-<div *ngIf="!selected && !newVehicle && !selectedVehicle">
-  <p>Hello, {{loggedUser.firstName}} {{loggedUser.lastName}}</p>
-  <button (click)="editUser()" class="btn btn-primary">Edit Profile</button><br><br>
-</div>
+<div class="container mt-3">
+  <div class="main-body">
 
-<div *ngIf="!newVehicle && !selected && !selectedVehicle">
+        <div class="row gutters-sm mb-3">
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                  <div class="mt-4">
+                    <h4>{{loggedUser.firstName}} {{loggedUser.lastName}}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8">
+
+            <div *ngIf="!edituser" class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Full Name</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    {{loggedUser.firstName}} {{loggedUser.lastName}}
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Email</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    {{loggedUser.email}}
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Address</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    {{loggedUser.address.street}}, {{loggedUser.address.city}}, {{loggedUser.address.state}} {{loggedUser.address.zip}}
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-9">
+                    <button class="btn btn-info" (click)="editUser()" >Edit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="edituser" class="card mb-4">
+              <div class="card-body">
+                  <form>
+                      <!-- Form Row-->
+                      <div class="row gx-3 mb-3">
+                          <!-- Form Group (first name)-->
+                          <div class="col-md-6">
+                              <label class="small mb-1" for="firstName">First name</label>
+                              <input class="form-control" type="text" placeholder="Enter your first name" name="firstName" [(ngModel)]="edituser.firstName">
+                          </div>
+                          <!-- Form Group (last name)-->
+                          <div class="col-md-6">
+                              <label class="small mb-1" for="lastName">Last name</label>
+                              <input class="form-control" type="text" placeholder="Enter your last name" name="lastName" [(ngModel)]="edituser.lastName">
+                          </div>
+                      </div>
+                      <!-- Form Group (email address)-->
+                      <div class="mb-3">
+                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" [(ngModel)]="edituser.email">
+                      </div>
+                      <!-- Form Row        -->
+                      <div class="row gx-3 mb-3">
+                          <!-- Form Group (location)-->
+                          <div class="col-md-3">
+                              <label class="small mb-1" for="street">Street</label>
+                              <input class="form-control" type="text" placeholder="Enter your street" name="street" [(ngModel)]="edituser.address.street">
+                          </div>
+                          <div class="col-md-3">
+                              <label class="small mb-1" for="city">City</label>
+                              <input class="form-control" type="text" placeholder="Enter your street" name="city" [(ngModel)]="edituser.address.city">
+                          </div>
+                          <div class="col-md-3">
+                              <label class="small mb-1" for="state">State</label>
+                              <input class="form-control" type="text" placeholder="Enter your street" name="state" [(ngModel)]="edituser.address.state">
+                          </div>
+                          <div class="col-md-3">
+                              <label class="small mb-1" for="zip">Zip</label>
+                              <input class="form-control" type="text" placeholder="Enter your street" name="zip" [(ngModel)]="edituser.address.zip">
+                          </div>
+                      </div>
+                      <!-- Save changes button-->
+                      <button (click)="updateUser(edituser)" class="btn btn-primary" type="submit">Save changes</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+
+<div *ngIf="!newVehicle && !selectedVehicle">
   <button (click)="setAddVehicle()" class="btn btn-success">Add Vehicle</button>
   <table class="table table-bordered table-hover">
     <thead class="table-dark">
@@ -63,32 +168,6 @@
 
     <button (click)="addVehicle(newVehicle)" type="submit" class="btn btn-success">Add</button>
     <button (click)="newVehicle=null" type="submit" class="btn btn-danger">Cancel</button>
-
-  </form>
-</div>
-
-<div *ngIf="selected">
-  <form>
-    <label for="firstName"><b> Firstname </b></label>
-    <input type="text" name="firstName" [(ngModel)]="loggedUser.firstName" /> <br> <br>
-
-    <label for="lastName"> <b>Lastname </b></label>
-    <input type="text" placeholder="Enter Last Name" name="lastName" [(ngModel)]="loggedUser.lastName" /> <br> <br>
-
-    <label for="street"><b>Street</b></label>
-    <input type="text" placeholder="Enter street" name="street" id="street" [(ngModel)]="loggedUser.address.street" required><br><br>
-
-    <label for="city"><b>City</b></label>
-    <input type="text" placeholder="Enter city" name="city" id="city" [(ngModel)]="loggedUser.address.city" required><br><br>
-
-    <label for="state"><b>State</b></label>
-    <input type="text" placeholder="Enter state" name="state" id="state" [(ngModel)]="loggedUser.address.state" required><br><br>
-
-    <label for="zip"><b>Zip</b></label>
-    <input type="text" placeholder="Enter zip" name="zip" id="zip" [(ngModel)]="loggedUser.address.zip" required><br><br>
-
-    <button (click)="updateUser(loggedUser)" type="submit" class="btn btn-success">Save changes</button>
-    <button (click)="selected=false" type="submit" class="btn btn-danger">Cancel</button>
 
   </form>
 </div>

@@ -23,6 +23,7 @@ import { Vehicle } from '../../models/vehicle';
 export class ProfileComponent implements OnInit{
 
   loggedUser: User = new User();
+  edituser: User | null = null;
   address: Address | null = null;
   selected: boolean = false;
   newVehicle : Vehicle | null = null;
@@ -96,16 +97,14 @@ export class ProfileComponent implements OnInit{
   }
 
   editUser():void{
-    this.selected = true;
+    this.edituser = Object.assign({}, this.loggedUser);
   }
 
   updateUser(user: User):void{
-    console.log(this.loggedUser);
     this.userServ.updateUser(user).subscribe({
       next: (updatedUser) => {
-        console.log('Updated user');
         this.loggedUser = updatedUser;
-        this.selected = false;
+        this.edituser = null;
       },
       error: (err) => {
         console.log('Error updating user' + err);
