@@ -10,7 +10,6 @@ import { Comment } from '../../models/comment';
 import { Store } from '../../models/store';
 import { User } from './../../models/user';
 import { AuthService } from '../../services/auth.service';
-import { StoreRating } from '../../models/store-rating';
 import { StoreRatingService } from '../../services/store-rating.service';
 
 @Component({
@@ -32,16 +31,14 @@ export class CommentListComponent implements OnInit{
     private storeService: StoreService,
     private commentService: CommentService,
     private auth: AuthService,
-    private storeRatingService: StoreRatingService
     ) {}
 
   loggedUser: User = new User();
   comments: Comment[] = [];
-  newComment : Comment | null = null;
+  newComment : Comment = new Comment();
   selectedComment : Comment | null = null;
   storeID: number = 0;
   store: Store = new Store();
-  selected: boolean = false;
 
   storeRatingAverage: number = 0;
 
@@ -89,25 +86,6 @@ export class CommentListComponent implements OnInit{
   });
   }
 
-
-  setAddComment():void{
-    this.newComment = new Comment();
-
-  }
-
-
-  commentList():void{
-    this.commentService.getCommentsByStoreId(this.storeID).subscribe({
-      next: (comments) => {
-        this.comments = comments;
-        console.log('Retrieved comment list');
-      },
-      error : (err) => {
-        console.log('Error retrieving commentList(): ' + err);
-      }
-    });
-  }
-
   getUser():void{
     this.auth.getLoggedInUser().subscribe({
       next: (user) => {
@@ -123,19 +101,13 @@ export class CommentListComponent implements OnInit{
     });
   }
 
-
-  displayComment(comment:Comment):void{
-    this.selectedComment = comment;
-  }
-
-
   addComment(comment: Comment):void{
     console.log(comment);
     this.commentService.addComment(comment, this.storeID).subscribe({
       next: (addedComment) => {
         console.log('Comment added');
-        this.commentList();
-        this.newComment = null;
+        this.reload();
+        this.newComment = new Comment();
       },
       error : (err) => {
         console.log('Error adding comment: ' + err);
@@ -149,6 +121,7 @@ export class CommentListComponent implements OnInit{
       next : (returnedComment) => {
         console.log('updating comment#: '+ comment.id);
         this.selectedComment = null;
+        this.reload();
       },
       error : (err) => {
         console.log('Error updating comment: ' + err);
@@ -162,10 +135,23 @@ export class CommentListComponent implements OnInit{
       next : (returnedComment) => {
         console.log('deleting comment#: '+ commentId);
         this.selectedComment = null;
-        console.log('error');
-        this.commentList();
+        this.reload();
       }
     });
+  }
+
+  setComment(comment:Comment):void{
+    this.selectedComment = comment;
+  }
+
+  countCommentsByUser(id:number):number{
+    let count = 0;
+    for(let i = 0; i < this.comments.length; i++){
+      if(this.comments[i].user.id === id){
+        count++;
+      }
+    }
+    return count;
   }
 
 }
