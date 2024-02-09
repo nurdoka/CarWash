@@ -10,6 +10,7 @@ export class User {
   enabled : boolean;
   role : string;
   address : Address;
+  createDate : string;
 
   constructor(
     id : number = 0,
@@ -20,7 +21,8 @@ export class User {
     password : string = '',
     enabled : boolean = false,
     role : string = '',
-    address : Address = new Address()
+    address : Address = new Address(),
+    createDate : string = ''
   ){
     this.id = id;
     this.firstName = firstName;
@@ -31,6 +33,7 @@ export class User {
     this.password = password;
     this.role = role;
     this.address = address;
+    this.createDate = createDate;
   }
 }
 

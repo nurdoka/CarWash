@@ -1,21 +1,20 @@
 import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { AddressService } from '../../services/address.service';
-import { Address } from '../../models/address';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
 import { VehicleService } from '../../services/vehicle.service';
 import { Vehicle } from '../../models/vehicle';
+import { StoreRatingComponent } from '../store-rating/store-rating.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    StoreRatingComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -24,17 +23,13 @@ export class ProfileComponent implements OnInit{
 
   loggedUser: User = new User();
   edituser: User | null = null;
-  address: Address | null = null;
-  selected: boolean = false;
   newVehicle : Vehicle | null = null;
   vehicles : Vehicle[] = [];
   selectedVehicle : Vehicle | null = null;
 
   constructor(
     private auth: AuthService,
-    private addressService: AddressService,
     private userServ: UserService,
-    private router: Router,
     private vehicleService : VehicleService
     ){}
 
@@ -120,18 +115,6 @@ export class ProfileComponent implements OnInit{
       },
       error: (problem) => {
         console.log('Error getting user: ' + problem);
-      }
-    });
-  }
-
-  getAddress():void{
-    this.addressService.getAddressByUsername().subscribe({
-      next: (address) => {
-        this.address = address;
-        console.log(address);
-      },
-      error: (err) => {
-        console.log('Error getting address: ' + err);
       }
     });
   }

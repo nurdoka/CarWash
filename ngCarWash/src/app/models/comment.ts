@@ -5,7 +5,6 @@ import { User } from "./user";
 export class Comment {
     id: number;
     content: string;
-
     user : User;
     store : Store;
     commentDate: Date | null;  // Allow Date or null
