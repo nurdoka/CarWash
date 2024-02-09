@@ -1,173 +1,169 @@
 <div class="container mt-3">
   <div class="main-body">
-
-        <div class="row gutters-sm mb-3">
-
-          <div class="col-md-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex flex-column align-items-center text-center">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                  <div class="mt-4">
-                    <h4>{{loggedUser.firstName}} {{loggedUser.lastName}}</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-8">
-
-            <div *ngIf="!edituser" class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Full Name</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{loggedUser.firstName}} {{loggedUser.lastName}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Email</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{loggedUser.email}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Address</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{loggedUser.address.street}}, {{loggedUser.address.city}}, {{loggedUser.address.state}} {{loggedUser.address.zip}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-9">
-                    <button class="btn btn-info" (click)="editUser()" >Edit</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div *ngIf="edituser" class="card mb-4">
-              <div class="card-body">
-                  <form>
-                      <!-- Form Row-->
-                      <div class="row gx-3 mb-3">
-                          <!-- Form Group (first name)-->
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="firstName">First name</label>
-                              <input class="form-control" type="text" placeholder="Enter your first name" name="firstName" [(ngModel)]="edituser.firstName">
-                          </div>
-                          <!-- Form Group (last name)-->
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="lastName">Last name</label>
-                              <input class="form-control" type="text" placeholder="Enter your last name" name="lastName" [(ngModel)]="edituser.lastName">
-                          </div>
-                      </div>
-                      <!-- Form Group (email address)-->
-                      <div class="mb-3">
-                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" [(ngModel)]="edituser.email">
-                      </div>
-                      <!-- Form Row        -->
-                      <div class="row gx-3 mb-3">
-                          <!-- Form Group (location)-->
-                          <div class="col-md-3">
-                              <label class="small mb-1" for="street">Street</label>
-                              <input class="form-control" type="text" placeholder="Enter your street" name="street" [(ngModel)]="edituser.address.street">
-                          </div>
-                          <div class="col-md-3">
-                              <label class="small mb-1" for="city">City</label>
-                              <input class="form-control" type="text" placeholder="Enter your street" name="city" [(ngModel)]="edituser.address.city">
-                          </div>
-                          <div class="col-md-3">
-                              <label class="small mb-1" for="state">State</label>
-                              <input class="form-control" type="text" placeholder="Enter your street" name="state" [(ngModel)]="edituser.address.state">
-                          </div>
-                          <div class="col-md-3">
-                              <label class="small mb-1" for="zip">Zip</label>
-                              <input class="form-control" type="text" placeholder="Enter your street" name="zip" [(ngModel)]="edituser.address.zip">
-                          </div>
-                      </div>
-                      <!-- Save changes button-->
-                      <button (click)="updateUser(edituser)" class="btn btn-primary" type="submit">Save changes</button>
-                  </form>
+    <div class="row gutters-sm mb-3">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+              <div class="mt-4">
+                <h4>{{loggedUser.firstName}} {{loggedUser.lastName}}</h4>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-md-8">
+        <div *ngIf="!edituser" class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Full Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{loggedUser.firstName}} {{loggedUser.lastName}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{loggedUser.email}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Address</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{loggedUser.address.street}}, {{loggedUser.address.city}}, {{loggedUser.address.state}} {{loggedUser.address.zip}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-9">
+                <button class="btn btn-info" (click)="editUser()" >Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="edituser" class="card mb-4">
+          <div class="card-body">
+            <form>
+                <!-- Form Row-->
+              <div class="row gx-3 mb-3">
+                <!-- Form Group (first name)-->
+                <div class="col-md-6">
+                    <label class="small mb-1" for="firstName">First name</label>
+                    <input class="form-control" type="text" placeholder="Enter your first name" name="firstName" [(ngModel)]="edituser.firstName">
+                </div>
+                <!-- Form Group (last name)-->
+                <div class="col-md-6">
+                    <label class="small mb-1" for="lastName">Last name</label>
+                    <input class="form-control" type="text" placeholder="Enter your last name" name="lastName" [(ngModel)]="edituser.lastName">
+                </div>
+              </div>
+              <!-- Form Group (email address)-->
+              <div class="mb-3">
+                <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" [(ngModel)]="edituser.email">
+              </div>
+              <!-- Form Row        -->
+              <div class="row gx-3 mb-3">
+                <div class="col-md-3">
+                  <label class="small mb-1" for="street">Street</label>
+                  <input class="form-control" type="text" placeholder="Enter your street" name="street" [(ngModel)]="edituser.address.street">
+                </div>
+                <div class="col-md-3">
+                  <label class="small mb-1" for="city">City</label>
+                  <input class="form-control" type="text" placeholder="Enter your street" name="city" [(ngModel)]="edituser.address.city">
+                </div>
+                <div class="col-md-3">
+                  <label class="small mb-1" for="state">State</label>
+                  <input class="form-control" type="text" placeholder="Enter your street" name="state" [(ngModel)]="edituser.address.state">
+                </div>
+                <div class="col-md-3">
+                  <label class="small mb-1" for="zip">Zip</label>
+                  <input class="form-control" type="text" placeholder="Enter your street" name="zip" [(ngModel)]="edituser.address.zip">
+                </div>
+              </div>
+              <button (click)="updateUser(edituser)" class="btn btn-primary" type="submit">Save changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 
+  <div *ngIf="!newVehicle && !selectedVehicle">
+    <button (click)="setAddVehicle()" class="btn btn-success">Add Vehicle</button>
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>YEAR</th>
+          <th>MAKE</th>
+          <th>MODEL</th>
+          <th>COLOR</th>
+          <th>LICENSE PLATE</th>
+          <th>UPDATE</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr  *ngFor="let vehicle of vehicles">
+          <td>{{vehicle.year}}</td>
+          <td>{{vehicle.make}}</td>
+          <td>{{vehicle.model}}</td>
+          <td>{{vehicle.color}}</td>
+          <td>{{vehicle.licensePlate}}</td>
+          <td><button (click)="displayVehicle(vehicle)" type="button" class="btn btn-warning">Update</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div *ngIf="!newVehicle && !selectedVehicle">
-  <button (click)="setAddVehicle()" class="btn btn-success">Add Vehicle</button>
-  <table class="table table-bordered table-hover">
-    <thead class="table-dark">
-      <tr>
-        <th>YEAR</th>
-        <th>MAKE</th>
-        <th>MODEL</th>
-        <th>COLOR</th>
-        <th>LICENSE PLATE</th>
-        <th>UPDATE</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr  *ngFor="let vehicle of vehicles">
-        <td>{{vehicle.year}}</td>
-        <td>{{vehicle.make}}</td>
-        <td>{{vehicle.model}}</td>
-        <td>{{vehicle.color}}</td>
-        <td>{{vehicle.licensePlate}}</td>
-        <td><button (click)="displayVehicle(vehicle)" type="button" class="btn btn-warning">Update</button></td>
-      </tr>
-    </tbody>
-  </table>
+  <div *ngIf="selectedVehicle">
+    <form>
+      <label for="year"><b> Year </b></label>
+      <input type="text" placeholder="Enter Year" name="year" [(ngModel)]="selectedVehicle.year"/> <br> <br>
+      <label for="make"><b> Make </b></label>
+      <input type="text" placeholder="Enter Make" name="make" [(ngModel)]="selectedVehicle.make"/> <br> <br>
+      <label for="model"><b> Model </b></label>
+      <input type="text" placeholder="Enter Model" name="model" [(ngModel)]="selectedVehicle.model"/> <br> <br>
+      <label for="color"><b> Color </b></label>
+      <input type="text" placeholder="Enter Color" name="color" [(ngModel)]="selectedVehicle.color"/> <br> <br>
+      <label for="licensePlate"><b> License Plate </b></label>
+      <input type="text" placeholder="Enter License Plate" name="licensePlate" [(ngModel)]="selectedVehicle.licensePlate"/> <br> <br>
+
+      <button (click)="updateVehicle(selectedVehicle)" type="submit" class="btn btn-success">Update</button>
+      <button (click)="deleteVehicle(selectedVehicle.id)" type="submit" class="btn btn-danger">Delete</button>
+      <button (click)="selectedVehicle=null" type="submit" class="btn btn-warning">Cancel</button>
+    </form>
+  </div>
+
+  <div *ngIf="newVehicle">
+    <form>
+      <label for="year"><b> Year </b></label>
+      <input type="text" placeholder="Enter Year" name="year" [(ngModel)]="newVehicle.year"/> <br> <br>
+      <label for="make"><b> Make </b></label>
+      <input type="text" placeholder="Enter Make" name="make" [(ngModel)]="newVehicle.make"/> <br> <br>
+      <label for="model"><b> Model </b></label>
+      <input type="text" placeholder="Enter Model" name="model" [(ngModel)]="newVehicle.model"/> <br> <br>
+      <label for="color"><b> Color </b></label>
+      <input type="text" placeholder="Enter Color" name="color" [(ngModel)]="newVehicle.color"/> <br> <br>
+      <label for="licensePlate"><b> License Plate </b></label>
+      <input type="text" placeholder="Enter License Plate" name="licensePlate" [(ngModel)]="newVehicle.licensePlate"/> <br> <br>
+
+      <button (click)="addVehicle(newVehicle)" type="submit" class="btn btn-success">Add</button>
+      <button (click)="newVehicle=null" type="submit" class="btn btn-danger">Cancel</button>
+
+    </form>
+  </div>
+
 </div>
 
-<div *ngIf="selectedVehicle">
-  <form>
-    <label for="year"><b> Year </b></label>
-    <input type="text" placeholder="Enter Year" name="year" [(ngModel)]="selectedVehicle.year"/> <br> <br>
-    <label for="make"><b> Make </b></label>
-    <input type="text" placeholder="Enter Make" name="make" [(ngModel)]="selectedVehicle.make"/> <br> <br>
-    <label for="model"><b> Model </b></label>
-    <input type="text" placeholder="Enter Model" name="model" [(ngModel)]="selectedVehicle.model"/> <br> <br>
-    <label for="color"><b> Color </b></label>
-    <input type="text" placeholder="Enter Color" name="color" [(ngModel)]="selectedVehicle.color"/> <br> <br>
-    <label for="licensePlate"><b> License Plate </b></label>
-    <input type="text" placeholder="Enter License Plate" name="licensePlate" [(ngModel)]="selectedVehicle.licensePlate"/> <br> <br>
 
-    <button (click)="updateVehicle(selectedVehicle)" type="submit" class="btn btn-success">Update</button>
-    <button (click)="deleteVehicle(selectedVehicle.id)" type="submit" class="btn btn-danger">Delete</button>
-    <button (click)="selectedVehicle=null" type="submit" class="btn btn-warning">Cancel</button>
-  </form>
-</div>
 
-<div *ngIf="newVehicle">
-  <form>
-    <label for="year"><b> Year </b></label>
-    <input type="text" placeholder="Enter Year" name="year" [(ngModel)]="newVehicle.year"/> <br> <br>
-    <label for="make"><b> Make </b></label>
-    <input type="text" placeholder="Enter Make" name="make" [(ngModel)]="newVehicle.make"/> <br> <br>
-    <label for="model"><b> Model </b></label>
-    <input type="text" placeholder="Enter Model" name="model" [(ngModel)]="newVehicle.model"/> <br> <br>
-    <label for="color"><b> Color </b></label>
-    <input type="text" placeholder="Enter Color" name="color" [(ngModel)]="newVehicle.color"/> <br> <br>
-    <label for="licensePlate"><b> License Plate </b></label>
-    <input type="text" placeholder="Enter License Plate" name="licensePlate" [(ngModel)]="newVehicle.licensePlate"/> <br> <br>
-
-    <button (click)="addVehicle(newVehicle)" type="submit" class="btn btn-success">Add</button>
-    <button (click)="newVehicle=null" type="submit" class="btn btn-danger">Cancel</button>
-
-  </form>
-</div>

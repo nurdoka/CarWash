@@ -1,46 +1,85 @@
-<form>
-  <div class="container">
-    <h1>Register</h1>
-    <p>Please fill in this form to create an account.</p>
-    <hr>
+<div class="container">
+  <section class="vh-100">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card bg-info" style="border-radius: 15px;">
+              <div class="card-body p-5">
+                <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-    <label for="firstName"><b> Firstname </b></label>
-    <input type="text" placeholder="Enter First Name" name="firstName" [(ngModel)]="newUser.firstName"/> <br> <br>
+                <form>
 
-    <label for="lastName"> <b>Lastname </b></label>
-    <input type="text" placeholder="Enter Last Name" name="lastName" [(ngModel)]="newUser.lastName" /> <br> <br>
+                  <div class="form-outline mb-4">
+                    <input type="text" name="firstname" class="form-control form-control-lg" [(ngModel)]="newUser.firstName"/>
+                    <label class="form-label" for="firstname">First Name</label>
+                  </div>
 
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" id="email" [(ngModel)]="newUser.email" required><br><br>
+                  <div class="form-outline mb-4">
+                    <input type="text" name="lastname" class="form-control form-control-lg" [(ngModel)]="newUser.lastName"/>
+                    <label class="form-label" for="lastname">Last Name</label>
+                  </div>
 
-    <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username" id="username" [(ngModel)]="newUser.username" required><br><br>
+                  <div class="form-outline mb-4">
+                    <input type="email" name="email" class="form-control form-control-lg" [(ngModel)]="newUser.email"/>
+                    <label class="form-label" for="email">Email</label>
+                  </div>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" id="psw" [(ngModel)]="newUser.password" required>
+                  <div class="form-outline mb-4">
+                    <input type="text" name="username" class="form-control form-control-lg" [(ngModel)]="newUser.username"/>
+                    <label class="form-label" for="username">Username</label>
+                  </div>
 
-    <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required><br><br>
+                  <div class="form-outline mb-4">
+                    <input type="password" name="password" class="form-control form-control-lg" [(ngModel)]="newUser.password"/>
+                    <label class="form-label" for="password">Password</label>
+                  </div>
 
-    <label for="street"><b>Street</b></label>
-    <input type="text" placeholder="Enter street" name="street" id="street" [(ngModel)]="newUser.address.street" required><br><br>
+                  <div class="form-outline mb-4">
+                    <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
+                    <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                  </div>
+                  <h5>Address</h5>
+                  <div class="form-outline mb-4">
+                    <input type="text" name="street" class="form-control form-control-lg" [(ngModel)]="newUser.address.street"/>
+                    <label class="form-label" for="street">Street</label>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input type="text" name="city" class="form-control form-control-lg" [(ngModel)]="newUser.address.city"/>
+                    <label class="form-label" for="city">City</label>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input type="text" name="state" class="form-control form-control-lg" [(ngModel)]="newUser.address.state"/>
+                    <label class="form-label" for="state">State</label>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input type="text" name="zip" class="form-control form-control-lg" [(ngModel)]="newUser.address.zip"/>
+                    <label class="form-label" for="zip">Zip</label>
+                  </div>
 
-    <label for="city"><b>City</b></label>
-    <input type="text" placeholder="Enter city" name="city" id="city" [(ngModel)]="newUser.address.city" required><br><br>
+                  <div class="form-check d-flex justify-content-center mb-5">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                    <label class="form-check-label" for="form2Example3g">
+                      I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                    </label>
+                  </div>
 
-    <label for="state"><b>State</b></label>
-    <input type="text" placeholder="Enter state" name="state" id="state" [(ngModel)]="newUser.address.state" required><br><br>
+                  <div class="d-flex justify-content-center">
+                    <button (click)="register(newUser)" type="button" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                  </div>
 
-    <label for="zip"><b>Zip</b></label>
-    <input type="text" placeholder="Enter zip" name="zip" id="zip" [(ngModel)]="newUser.address.zip" required><br><br>
+                  <p class="text-center text-muted mt-5 mb-0">Have already an account? <a [routerLink]="['/login']"
+                      class="fw-bold text-body"><u>Login here</u></a></p>
 
-    <hr>
+                </form>
 
-    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-    <button (click)="register(newUser)" type="submit" class="registerbtn">Register</button>
-  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div class="container signin">
-    <p>Already have an account? <a [routerLink]="['/login']">Login</a>.</p>
-  </div>
-</form>
+</div>
+
