@@ -29,7 +29,7 @@ export class HomeComponent {
 
   images = [
     'https://media.slidesgo.com/storage/86762/conversions/0-car-wash-business-plan-thumb.jpg',
-    'https://lh3.googleusercontent.com/proxy/Sq7SJf5dlnepoENex7l69BIPCBxzIJtCfkZLQY4cO4Ey54RsgG3mmxiUlFOrzZbT54KeuTaDBYz7HLa3w6iNV8VjAF8d1c0XurNV',
+    'https://sonaenergy.com/wp-content/uploads/2022/07/carwash.jpeg',
     'https://assets-global.website-files.com/63a1be9079023a0a6c3babc2/63a1be9079023afd0f3bad75_photography_carousel-power-cleaning-equipment.webp'
   ];
 }

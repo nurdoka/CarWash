@@ -267,8 +267,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `carwashdb`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `username`, `password`, `enabled`, `role`, `address_id`, `create_date`, `last_update`) VALUES (1, 'John', 'Doe', 'some@gmail.com', 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'CUSTOMER', 1, NULL, NULL);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `username`, `password`, `enabled`, `role`, `address_id`, `create_date`, `last_update`) VALUES (2, 'Jane', 'Doe', 'customer1@gmail.com', 'cus1', '123', 1, 'CUSTOMER', 1, NULL, NULL);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `username`, `password`, `enabled`, `role`, `address_id`, `create_date`, `last_update`) VALUES (1, 'John', 'Doe', 'some@gmail.com', 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'CUSTOMER', 1, '2024-01-30 12:30:53', '2024-01-30 12:30:53');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `username`, `password`, `enabled`, `role`, `address_id`, `create_date`, `last_update`) VALUES (2, 'Jane', 'Doe', 'customer1@gmail.com', 'jane', 'jane', 1, 'CUSTOMER', 1, '2024-01-30 12:30:53', '2024-01-30 12:30:53');
 
 COMMIT;
 
@@ -278,7 +278,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `carwashdb`;
-INSERT INTO `vehicle` (`id`, `make`, `model`, `year`, `user_id`, `license_plate`, `create_date`, `last_update`, `enabled`, `color`) VALUES (1, 'Ford', 'F150', 2023, 1, '1234', NULL, NULL, 1, 'green');
+INSERT INTO `vehicle` (`id`, `make`, `model`, `year`, `user_id`, `license_plate`, `create_date`, `last_update`, `enabled`, `color`) VALUES (1, 'Ford', 'F150', 2023, 1, '1234', '2024-01-30 12:30:53', '2024-01-30 12:30:53', 1, 'green');
 
 COMMIT;
 
@@ -288,9 +288,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `carwashdb`;
-INSERT INTO `store` (`id`, `manager_id`, `phone`, `email`, `name`, `address_id`, `create_date`, `last_update`, `enabled`, `image_url`, `description`) VALUES (1, 1, '720-100-2000', 'some@gmail.com', 'CarWash', 1, NULL, NULL, 1, 'somepic.com', 'best store');
-INSERT INTO `store` (`id`, `manager_id`, `phone`, `email`, `name`, `address_id`, `create_date`, `last_update`, `enabled`, `image_url`, `description`) VALUES (2, 1, '720-100-2001', 'some2@gmail.com', 'CarWash2', 1, NULL, NULL, 1, 'pic01.com', 'next best');
-INSERT INTO `store` (`id`, `manager_id`, `phone`, `email`, `name`, `address_id`, `create_date`, `last_update`, `enabled`, `image_url`, `description`) VALUES (3, 1, '720-100-2002', 'some3@gmail.com', 'CarWash3', 1, NULL, NULL, 1, 'pic02.com', 'worst');
+INSERT INTO `store` (`id`, `manager_id`, `phone`, `email`, `name`, `address_id`, `create_date`, `last_update`, `enabled`, `image_url`, `description`) VALUES (1, 1, '720-100-2000', 'info@splashnshinecarwash.com', 'Splash \'n Shine', 1, '2024-01-30 12:30:53', '2024-01-30 12:30:53', 1, 'https://c8.alamy.com/comp/R2XEWC/-R2XEWC.jpg', 'Dive into a world of cleanliness with Splash \'n Shine Carwash! Our state-of-the-art facilities and expert technicians ensure that your vehicle receives a thorough cleaning, leaving it sparkling and gleaming. Whether it\'s a quick exterior wash or a comprehensive interior detailing, we guarantee top-notch service and results that shine!');
+INSERT INTO `store` (`id`, `manager_id`, `phone`, `email`, `name`, `address_id`, `create_date`, `last_update`, `enabled`, `image_url`, `description`) VALUES (2, 1, '720-100-2001', 'contact@crystalcleanautospa.com', 'Crystal Clean Auto Spa', 1, '2024-01-30 12:30:53', '2024-01-30 12:30:53', 1, 'https://starkravingredhead.files.wordpress.com/2017/03/carwash-image-1.png?w=455&h=294', 'Experience the ultimate in automotive rejuvenation at Crystal Clean Auto Spa! Step into our luxurious spa-like atmosphere and let our skilled team pamper your vehicle from bumper to bumper. With premium wash packages and meticulous attention to detail, we\'ll restore your car\'s shine and leave it looking like new.');
+INSERT INTO `store` (`id`, `manager_id`, `phone`, `email`, `name`, `address_id`, `create_date`, `last_update`, `enabled`, `image_url`, `description`) VALUES (3, 1, '720-100-2002', 'inquiries@sparklewashexpress.com', 'SparkleWash Express', 1, '2024-01-30 12:30:53', '2024-01-30 12:30:53', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqUITr6j6LgxUz7s1v1gb5pjNK3_qjSHeomTkIQdhbOL9x_oRLaeBjo0Oljn5-hr_mQMQ&usqp=CAU', 'Get ready to dazzle the streets with SparkleWash Express! Our convenient express wash services offer a quick and efficient way to keep your vehicle looking its best. With advanced cleaning technology and eco-friendly products, we deliver a sparkling clean finish in no time. Drive in dirty, drive out dazzling with SparkleWash Express!');
 
 COMMIT;
 
@@ -310,7 +310,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `carwashdb`;
-INSERT INTO `wash` (`id`, `vehicle_id`, `store_id`, `create_date`, `service_id`) VALUES (1, 1, 1, NULL, 1);
+INSERT INTO `wash` (`id`, `vehicle_id`, `store_id`, `create_date`, `service_id`) VALUES (1, 1, 1, '2024-01-30 12:30:53', 1);
 
 COMMIT;
 
@@ -330,12 +330,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `carwashdb`;
-INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (1, 'cool place', 1, 1, NULL);
-INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (2, 'cool place 2', 2, 1, NULL);
-INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (3, 'cool place 3', 3, 1, NULL);
-INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (4, 'cool place #1', 1, 2, NULL);
-INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (5, 'cool place #2', 2, 2, NULL);
-INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (6, 'cool place #3', 3, 2, NULL);
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (1, 'cool place', 1, 1, '2024-01-30 12:30:53');
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (2, 'cool place 2', 2, 1, '2024-01-30 12:30:53');
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (3, 'cool place 3', 3, 1, '2024-01-30 12:30:53');
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (4, 'cool place #1', 1, 2, '2024-01-30 12:30:53');
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (5, 'cool place #2', 2, 2, '2024-01-30 12:30:53');
+INSERT INTO `comment` (`id`, `content`, `store_id`, `user_id`, `comment_date`) VALUES (6, 'cool place #3', 3, 2, '2024-01-30 12:30:53');
 
 COMMIT;
 
@@ -345,7 +345,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `carwashdb`;
-INSERT INTO `store_rating` (`user_id`, `store_id`, `rating`, `create_date`, `rating_comment`) VALUES (1, 1, 5, NULL, 'great');
+INSERT INTO `store_rating` (`user_id`, `store_id`, `rating`, `create_date`, `rating_comment`) VALUES (1, 1, 5, '2024-01-30 12:30:53', 'great');
 
 COMMIT;
 
